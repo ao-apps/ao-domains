@@ -5,7 +5,9 @@ package com.aoindustries.domains.wwd;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.domains.Domain;
 import com.aoindustries.domains.DomainsProvider;
+import com.aoindustries.domains.TLD;
 import com.aoindustries.domains.wwd.wapi.ContactInfo;
 import com.aoindustries.domains.wwd.wapi.Credential;
 import com.aoindustries.domains.wwd.wapi.DomainByProxy;
@@ -25,6 +27,8 @@ import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -148,6 +152,80 @@ public class WildWestDomains implements DomainsProvider {
         return providerId;
     }
 
+    private static final Set<TLD> registerTlds = Collections.unmodifiableSet(
+        EnumSet.of(
+            TLD.COM,
+            TLD.INFO,
+            TLD.NET,
+            TLD.ME,
+            TLD.BIZ,
+            TLD.IT,
+            TLD.ORG,
+            TLD.MOBI,
+            TLD.COM_ES,
+            TLD.MX,
+            TLD.WS,
+            TLD.NOM_ES,
+            TLD.US,
+            TLD.ES,
+            TLD.ORG_ES,
+            TLD.NL,
+            TLD.IN,
+            TLD.COM_MX,
+            TLD.BZ,
+            TLD.COM_BZ,
+            TLD.NET_BZ,
+            TLD.CO_IN,
+            TLD.FIRM_IN,
+            TLD.GEN_IN,
+            TLD.IND_IN,
+            TLD.NET_IN,
+            TLD.ORG_IN,
+            TLD.TV
+        )
+    );
+
+    public Set<TLD> getRegisterTlds() {
+        return registerTlds;
+    }
+
+    private static final Set<TLD> transferTlds = Collections.unmodifiableSet(
+        EnumSet.of(
+            TLD.COM,
+            TLD.INFO,
+            TLD.NET,
+            TLD.ME,
+            TLD.BIZ,
+            TLD.IT,
+            TLD.ORG,
+            TLD.MOBI,
+            TLD.COM_ES,
+            //TLD.MX,
+            TLD.WS,
+            TLD.NOM_ES,
+            TLD.US,
+            TLD.ES,
+            TLD.ORG_ES,
+            //TLD.NL,
+            TLD.IN,
+            TLD.COM_MX,
+            TLD.BZ,
+            TLD.COM_BZ,
+            TLD.NET_BZ,
+            TLD.CO_IN,
+            TLD.FIRM_IN,
+            TLD.GEN_IN,
+            TLD.IND_IN,
+            TLD.NET_IN,
+            TLD.ORG_IN,
+            TLD.TV
+        )
+    );
+
+    public Set<TLD> getTransferTlds() {
+        return transferTlds;
+    }
+
     public String getPortAddress() {
         return portAddress;
     }
@@ -170,11 +248,13 @@ public class WildWestDomains implements DomainsProvider {
         }
     }
 
-    public Map<String,Boolean> checkAvailability(Set<String> domains) throws IOException {
+    public Map<Domain,Boolean> checkAvailability(Set<Domain> domains) throws IOException {
+        Map<String,Domain> byString = new LinkedHashMap<String,Domain>(domains.size()*4/3+1);
+        for(Domain domain : domains) byString.put(domain.toString(), domain);
         String response = getSoap().checkAvailability(
             UUID.randomUUID().toString(),
             new Credential(account, password),
-            domains.toArray(new String[domains.size()]),
+            byString.keySet().toArray(new String[byString.size()]),
             null,
             null
         );
@@ -183,12 +263,12 @@ public class WildWestDomains implements DomainsProvider {
         XPath xpath = XPathFactory.newInstance().newXPath();
         try {
             NodeList nodeList = (NodeList)xpath.evaluate("/check/domain", document, XPathConstants.NODESET);
-            Map<String,Boolean> results = new LinkedHashMap<String,Boolean>(nodeList.getLength()*4/3+1);
+            Map<Domain,Boolean> results = new LinkedHashMap<Domain,Boolean>(nodeList.getLength()*4/3+1);
             for(int c=0; c<nodeList.getLength(); c++) {
                 Node node = nodeList.item(c);
                 if(!(node instanceof Element)) throw new IOException("TODO: "+response);
                 Element elem = (Element)node;
-                results.put(elem.getAttribute("name"), "1".equals(elem.getAttribute("avail")));
+                results.put(byString.get(elem.getAttribute("name")), "1".equals(elem.getAttribute("avail")));
             }
             return results;
         } catch(XPathExpressionException err) {
@@ -599,9 +679,11 @@ public class WildWestDomains implements DomainsProvider {
         // reset
         resetCertification();
         // availability
-        Map<String,Boolean> availability = checkAvailability(new LinkedHashSet<String>(Arrays.asList(new String[] {"example.us", "example.biz"})));
-        if(!Boolean.TRUE.equals(availability.get("example.us"))) throw new IOException("TODO: example.us is not available");
-        if(!Boolean.TRUE.equals(availability.get("example.biz"))) throw new IOException("TODO: example.biz is not available");
+        Domain exampleUs = new Domain("example", TLD.US);
+        Domain exampleBiz = new Domain("example", TLD.BIZ);
+        Map<Domain,Boolean> availability = checkAvailability(new LinkedHashSet<Domain>(Arrays.asList(new Domain[] {exampleUs, exampleBiz})));
+        if(!Boolean.TRUE.equals(availability.get(exampleUs))) throw new IOException("TODO: example.us is not available");
+        if(!Boolean.TRUE.equals(availability.get(exampleBiz))) throw new IOException("TODO: example.biz is not available");
         // order domains
         OrderDomainsResult orderDomainsResult = orderDomains(
             "abcde",
@@ -626,9 +708,9 @@ public class WildWestDomains implements DomainsProvider {
         String bizResourceid = poll1Results.get(orderDomainsResult.getOrderid()).get(1);
         OrderDomainPrivacyResult orderDomainPrivacyResult = orderDomainPrivacy(orderDomainsResult.getUser(), bizResourceid, "defgh", "info@example.biz");
         // availability check
-        Map<String,Boolean> availability2 = checkAvailability(new LinkedHashSet<String>(Arrays.asList(new String[] {"example.us", "example.biz"})));
-        if(!Boolean.FALSE.equals(availability2.get("example.us"))) throw new IOException("TODO: example.us is not available");
-        if(!Boolean.FALSE.equals(availability2.get("example.biz"))) throw new IOException("TODO: example.biz is not available");
+        Map<Domain,Boolean> availability2 = checkAvailability(new LinkedHashSet<Domain>(Arrays.asList(new Domain[] {exampleUs, exampleBiz})));
+        if(!Boolean.FALSE.equals(availability2.get(exampleUs))) throw new IOException("TODO: example.us is available");
+        if(!Boolean.FALSE.equals(availability2.get(exampleBiz))) throw new IOException("TODO: example.biz is available");
         // information query
         info(bizResourceid);
         // renewal

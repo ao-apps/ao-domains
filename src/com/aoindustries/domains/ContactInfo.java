@@ -17,7 +17,7 @@ import org.apache.commons.validator.GenericValidator;
 /**
  * @author  AO Industries, Inc.
  */
-public class ContactInfo implements Cloneable {
+public class ContactInfo implements Validateable {
 
     public static final int
         FIRST_NAME_MAX_LENGTH = 30,
@@ -101,15 +101,6 @@ public class ContactInfo implements Cloneable {
         setState(state);
         setPostalCode(postalCode);
         setCountry(country);
-    }
-
-    @Override
-    public ContactInfo clone() {
-        try {
-            return (ContactInfo)super.clone();
-        } catch(CloneNotSupportedException err) {
-            throw new RuntimeException(err);
-        }
     }
 
     /**
@@ -292,9 +283,6 @@ public class ContactInfo implements Cloneable {
         list.add(ApplicationResources.getMessage(userLocale, key, args));
     }
 
-    /**
-     * Validates the fields of this object.  Returns an empty map when there are no problems.
-     */
     public Map<String,List<String>> validate(Locale userLocale) {
         Map<String,List<String>> errors = new HashMap<String,List<String>>();
         if(firstName!=null) {

@@ -22,7 +22,17 @@ public interface DomainsProvider {
     String getProviderId();
 
     /**
+     * Gets the set of top level domains supported by this provider.
+     */
+    Set<TLD> getRegisterTlds() throws IOException;
+
+    /**
+     * Gets the set of top level domains supported by this provider.
+     */
+    Set<TLD> getTransferTlds() throws IOException;
+
+    /**
      * Checks the availability of the provided domains.
      */
-    public Map<String,Boolean> checkAvailability(Set<String> domains) throws IOException;
+    Map<Domain,Boolean> checkAvailability(Set<Domain> domains) throws IOException;
 }
