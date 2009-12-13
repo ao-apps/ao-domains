@@ -42,7 +42,7 @@ public class CertificationTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        domainsProvider = new WildWestDomains("wwdCertificationTest", getConfig("portAddress"), getConfig("account"), getConfig("password"));
+        domainsProvider = new WildWestDomains("wwdCertificationTest", WildWestDomains.OTE_PORT_ADDRESS, getConfig("account"), getConfig("password"));
     }
 
     @Override

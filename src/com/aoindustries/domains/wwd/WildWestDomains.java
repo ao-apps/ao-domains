@@ -73,6 +73,16 @@ import org.w3c.dom.NodeList;
  */
 public class WildWestDomains implements DomainsProvider {
 
+    /**
+     * The production web services URL.
+     */
+    public static final String PRODUCTION_PORT_ADDRESS = "https://api.wildwestdomains.com/wswwdapi/wapi.asmx?wsdl";
+
+    /**
+     * The test web services URL.
+     */
+    public static final String OTE_PORT_ADDRESS = "https://api.ote.wildwestdomains.com/wswwdapi/wapi.asmx?wsdl";
+
     private static final Logger logger = Logger.getLogger(WildWestDomains.class.getName());
 
     /**
