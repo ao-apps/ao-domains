@@ -171,9 +171,8 @@ public class WildWestDomains implements DomainsProvider {
     }
 
     public Map<String,Boolean> checkAvailability(Set<String> domains) throws IOException {
-        UUID requestId = UUID.randomUUID();
         String response = getSoap().checkAvailability(
-            requestId.toString(),
+            UUID.randomUUID().toString(),
             new Credential(account, password),
             domains.toArray(new String[domains.size()]),
             null,
@@ -181,18 +180,22 @@ public class WildWestDomains implements DomainsProvider {
         );
         logger.fine(response);
         Document document = transform(response);
-        Node check = document.getFirstChild();
-        if(!"check".equals(check.getNodeName())) throw new IOException("TODO: "+response);
-        Map<String,Boolean> results = new LinkedHashMap<String,Boolean>(domains.size()*4/3+1);
-        NodeList domainList = check.getChildNodes();
-        for(int c=0; c<domainList.getLength(); c++) {
-            Node domain = domainList.item(c);
-            if(!"domain".equals(domain.getNodeName())) throw new IOException("TODO: "+response);
-            if(!(domain instanceof Element)) throw new IOException("TODO: "+response);
-            Element domainElem = (Element)domain;
-            results.put(domainElem.getAttribute("name"), "1".equals(domainElem.getAttribute("avail")));
+        XPath xpath = XPathFactory.newInstance().newXPath();
+        try {
+            NodeList nodeList = (NodeList)xpath.evaluate("/check/domain", document, XPathConstants.NODESET);
+            Map<String,Boolean> results = new LinkedHashMap<String,Boolean>(nodeList.getLength()*4/3+1);
+            for(int c=0; c<nodeList.getLength(); c++) {
+                Node node = nodeList.item(c);
+                if(!(node instanceof Element)) throw new IOException("TODO: "+response);
+                Element elem = (Element)node;
+                results.put(elem.getAttribute("name"), "1".equals(elem.getAttribute("avail")));
+            }
+            return results;
+        } catch(XPathExpressionException err) {
+            IOException ioErr = new IOException();
+            ioErr.initCause(err);
+            throw ioErr;
         }
-        return results;
     }
 
     public void createNewShopper(
@@ -211,9 +214,8 @@ public class WildWestDomains implements DomainsProvider {
         String country,
         String pin
     ) throws IOException {
-        UUID requestId = UUID.randomUUID();
         String response = getSoap().createNewShopper(
-            requestId.toString(),
+            UUID.randomUUID().toString(),
             new Credential(account, this.password),
             password,
             email,
@@ -231,6 +233,7 @@ public class WildWestDomains implements DomainsProvider {
             pin
         );
         logger.info(response);
+        // TODO
     }
 
     public class OrderDomainsResult {
@@ -269,9 +272,8 @@ public class WildWestDomains implements DomainsProvider {
         String country,
         String pin
     ) throws IOException {
-        UUID requestId = UUID.randomUUID();
         String response = getSoap().orderDomains(
-            requestId.toString(),
+            UUID.randomUUID().toString(),
             new Credential(account, this.password),
             new Shopper(
                 "createNew",
@@ -353,11 +355,10 @@ public class WildWestDomains implements DomainsProvider {
 
     private void resetCertification() throws IOException {
         // Create document
-        UUID requestId = UUID.randomUUID();
         Document document = newDocument();
         Element wapi = document.createElement("wapi");
         document.appendChild(wapi);
-        wapi.setAttribute("clTRID", requestId.toString());
+        wapi.setAttribute("clTRID", UUID.randomUUID().toString());
         wapi.setAttribute("account", account);
         wapi.setAttribute("pwd", password);
         Element manage = document.createElement("manage");
@@ -375,9 +376,8 @@ public class WildWestDomains implements DomainsProvider {
     }
 
     public Map<String,List<String>> poll() throws IOException {
-        UUID requestId = UUID.randomUUID();
         String response = getSoap().poll(
-            requestId.toString(),
+            UUID.randomUUID().toString(),
             new Credential(account, this.password),
             null
         );
@@ -426,9 +426,8 @@ public class WildWestDomains implements DomainsProvider {
     }
 
     public OrderDomainPrivacyResult orderDomainPrivacy(String user, String resourceId, String dbppwd, String dbpemail) throws IOException {
-        UUID requestId = UUID.randomUUID();
         String response = getSoap().orderDomainPrivacy(
-            requestId.toString(),
+            UUID.randomUUID().toString(),
             new Credential(account, this.password),
             new Shopper(user, null, null, null, null, null, null, null, "createNew", dbppwd, null, dbpemail, null),
             new DomainByProxy[] {
@@ -463,9 +462,8 @@ public class WildWestDomains implements DomainsProvider {
     }
 
     public void info(String resourceId) throws IOException {
-        UUID requestId = UUID.randomUUID();
         String response = getSoap().info(
-            requestId.toString(),
+            UUID.randomUUID().toString(),
             new Credential(account, this.password),
             resourceId,
             "standard",
@@ -479,9 +477,8 @@ public class WildWestDomains implements DomainsProvider {
     }
 
     public String orderPrivateDomainRenewals(String user, String dbpuser, String dbppwd, String usResourceid, String bizResourceid, String bizPdResourceid) throws IOException {
-        UUID requestId = UUID.randomUUID();
         String response = getSoap().orderPrivateDomainRenewals(
-            requestId.toString(),
+            UUID.randomUUID().toString(),
             new Credential(account, this.password),
             new Shopper(user, null, null, null, null, null, null, null, dbpuser, dbppwd, null, null, null),
             new DomainRenewal[] {
@@ -552,9 +549,8 @@ public class WildWestDomains implements DomainsProvider {
         String country,
         String pin
     ) throws IOException {
-        UUID requestId = UUID.randomUUID();
         String response = getSoap().orderDomainTransfers(
-            requestId.toString(),
+            UUID.randomUUID().toString(),
             new Credential(account, this.password),
             new Shopper(
                 "createNew",
@@ -586,7 +582,7 @@ public class WildWestDomains implements DomainsProvider {
             },
             null
         );
-        logger.info(response);
+        logger.fine(response);
         Document document = transform(response);
         XPath xpath = XPathFactory.newInstance().newXPath();
         try {

@@ -5,7 +5,9 @@ package com.aoindustries.domains;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-//import java.io.IOException;
+import java.io.IOException;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author  AO Industries, Inc.
@@ -18,4 +20,9 @@ public interface DomainsProvider {
      * provider.  The identifier is compared to test this equality.
      */
     String getProviderId();
+
+    /**
+     * Checks the availability of the provided domains.
+     */
+    public Map<String,Boolean> checkAvailability(Set<String> domains) throws IOException;
 }
