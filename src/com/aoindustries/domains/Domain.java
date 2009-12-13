@@ -22,7 +22,7 @@ public class Domain implements Comparable<Domain>, Validateable {
 
     public static final int SLD_MIN_LENGTH = 1;
     public static final int SLD_MAX_LENGTH = 63;
-    public static final Pattern SLD_PATTERN = Pattern.compile("^[a-z0-9](-[a-z0-9]+)*$");
+    public static final Pattern SLD_PATTERN = Pattern.compile("^[a-z0-9]+(-[a-z0-9]+)*$");
 
     private final String sld;
     private final TLD tld;
