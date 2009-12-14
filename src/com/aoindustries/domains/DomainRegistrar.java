@@ -5,7 +5,9 @@ package com.aoindustries.domains;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.util.i18n.Money;
 import java.io.IOException;
+import java.util.Currency;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,4 +37,9 @@ public interface DomainRegistrar {
      * Checks the availability of the provided domains.
      */
     Map<Domain,Boolean> checkAvailability(Set<Domain> domains) throws IOException;
+
+    /**
+     * Gets the cost per year to register a domain in the given top level domains.
+     */
+    Money getRegisterCost(Currency currency, Tld tld, int numYears) throws IOException;
 }
