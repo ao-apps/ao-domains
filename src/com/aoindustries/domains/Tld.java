@@ -11,81 +11,94 @@ package com.aoindustries.domains;
  */
 public enum Tld {
     // General
-    COM(TldCategory.GENERAL),
-    NET(TldCategory.GENERAL),
-    ORG(TldCategory.GENERAL),
-    INFO(TldCategory.GENERAL),
-    BIZ(TldCategory.GENERAL),
-    JOBS(TldCategory.GENERAL),
-    ME(TldCategory.GENERAL),
-    MOBI(TldCategory.GENERAL),
+    COM(TldCategory.GENERAL, 1, 10),
+    NET(TldCategory.GENERAL, 1, 10),
+    ORG(TldCategory.GENERAL, 1, 10),
+    INFO(TldCategory.GENERAL, 1, 10),
+    BIZ(TldCategory.GENERAL, 1, 10),
+    JOBS(TldCategory.GENERAL, 1, 10),
+    ME(TldCategory.GENERAL, 1, 10),
+    MOBI(TldCategory.GENERAL, 1, 10),
     // All Others
-    AG(TldCategory.AMERICAS),
-    COM_AG(TldCategory.AMERICAS),
-    NET_AG(TldCategory.AMERICAS),
-    ORG_AG(TldCategory.AMERICAS),
-    AM(TldCategory.EUROPE),
-    ASIA(TldCategory.ASIA),
-    AT(TldCategory.EUROPE),
-    BE(TldCategory.EUROPE),
-    BZ(TldCategory.AMERICAS),
-    COM_BZ(TldCategory.AMERICAS),
-    NET_BZ(TldCategory.AMERICAS),
-    CA(TldCategory.AMERICAS),
-    CC(TldCategory.ASIA),
-    CN(TldCategory.ASIA),
-    COM_CN(TldCategory.ASIA),
-    NET_CN(TldCategory.ASIA),
-    ORG_CN(TldCategory.ASIA),
-    DE(TldCategory.EUROPE),
-    ES(TldCategory.EUROPE),
+    AG(TldCategory.AMERICAS, 1, 10),
+    COM_AG(TldCategory.AMERICAS, 1, 10),
+    NET_AG(TldCategory.AMERICAS, 1, 10),
+    ORG_AG(TldCategory.AMERICAS, 1, 10),
+    AM(TldCategory.EUROPE, 1, 1),
+    ASIA(TldCategory.ASIA, 1, 10),
+    AT(TldCategory.EUROPE, 1, 1),
+    BE(TldCategory.EUROPE, 1, 1),
+    BZ(TldCategory.AMERICAS, 1, 10),
+    COM_BZ(TldCategory.AMERICAS, 1, 10),
+    NET_BZ(TldCategory.AMERICAS, 1, 10),
+    CA(TldCategory.AMERICAS, 1, 10),
+    CC(TldCategory.ASIA, 1, 10),
+    CN(TldCategory.ASIA, 1, 5),
+    COM_CN(TldCategory.ASIA, 1, 5),
+    NET_CN(TldCategory.ASIA, 1, 5),
+    ORG_CN(TldCategory.ASIA, 1, 5),
+    DE(TldCategory.EUROPE, 1, 1),
+    ES(TldCategory.EUROPE, 1, 5),
     // Failed checkAvailable call: COM_ES,
     // Failed checkAvailable call: NOM_ES,
     // Failed checkAvailable call: ORG_ES,
-    EU(TldCategory.EUROPE),
-    FM(TldCategory.ASIA),
-    GS(TldCategory.AMERICAS),
-    IN(TldCategory.ASIA),
-    CO_IN(TldCategory.ASIA),
-    FIRM_IN(TldCategory.ASIA),
-    GEN_IN(TldCategory.ASIA),
-    IND_IN(TldCategory.ASIA),
-    NET_IN(TldCategory.ASIA),
-    ORG_IN(TldCategory.ASIA),
-    IT(TldCategory.EUROPE),
-    JP(TldCategory.ASIA),
-    MS(TldCategory.AMERICAS),
-    // Failed checkAvailable call: MX(TldCategory.AMERICAS),
-    COM_MX(TldCategory.AMERICAS),
-    NL(TldCategory.EUROPE),
-    NU(TldCategory.ASIA),
-    CO_NZ(TldCategory.ASIA),
-    NET_NZ(TldCategory.ASIA),
-    ORG_NZ(TldCategory.ASIA),
-    TC(TldCategory.AMERICAS),
-    TK(TldCategory.ASIA),
-    TV(TldCategory.ASIA),
-    TW(TldCategory.ASIA),
-    COM_TW(TldCategory.ASIA),
-    IDV_TW(TldCategory.ASIA),
-    ORG_TW(TldCategory.ASIA),
-    CO_UK(TldCategory.EUROPE),
-    ME_UK(TldCategory.EUROPE),
-    ORG_UK(TldCategory.EUROPE),
-    US(TldCategory.AMERICAS),
-    VG(TldCategory.AMERICAS),
-    WS(TldCategory.ASIA);
+    EU(TldCategory.EUROPE, 1, 1),
+    FM(TldCategory.ASIA, 1, 1),
+    GS(TldCategory.AMERICAS, 1, 1),
+    IN(TldCategory.ASIA, 1, 10),
+    CO_IN(TldCategory.ASIA, 1, 10),
+    FIRM_IN(TldCategory.ASIA, 1, 10),
+    GEN_IN(TldCategory.ASIA, 1, 10),
+    IND_IN(TldCategory.ASIA, 1, 10),
+    NET_IN(TldCategory.ASIA, 1, 10),
+    ORG_IN(TldCategory.ASIA, 1, 10),
+    IT(TldCategory.EUROPE, 1, 1),
+    JP(TldCategory.ASIA, 1, 1),
+    MS(TldCategory.AMERICAS, 1, 1),
+    // Failed checkAvailable call: MX(TldCategory.AMERICAS, 1, 5),
+    COM_MX(TldCategory.AMERICAS, 1, 5),
+    NL(TldCategory.EUROPE, 1, 1),
+    NU(TldCategory.ASIA, 1, 1),
+    CO_NZ(TldCategory.ASIA, 1, 1),
+    NET_NZ(TldCategory.ASIA, 1, 1),
+    ORG_NZ(TldCategory.ASIA, 1, 1),
+    TC(TldCategory.AMERICAS, 1, 1),
+    TK(TldCategory.ASIA, 2, 2),
+    TV(TldCategory.ASIA, 1, 10),
+    TW(TldCategory.ASIA, 1, 10),
+    COM_TW(TldCategory.ASIA, 1, 10),
+    IDV_TW(TldCategory.ASIA, 1, 10),
+    ORG_TW(TldCategory.ASIA, 1, 10),
+    CO_UK(TldCategory.EUROPE, 2, 2),
+    ME_UK(TldCategory.EUROPE, 2, 2),
+    ORG_UK(TldCategory.EUROPE, 2, 2),
+    US(TldCategory.AMERICAS, 1, 10),
+    VG(TldCategory.AMERICAS, 1, 1),
+    WS(TldCategory.ASIA, 1, 10);
 
     private final TldCategory category;
     private final String domain;
+    private final int minRegistrationYears;
+    private final int maxRegistrationYears;
 
-    private Tld(TldCategory category) {
+    private Tld(TldCategory category, int minRegistrationYears, int maxRegistrationYears) {
+        assert minRegistrationYears <= maxRegistrationYears;
         this.category = category;
         this.domain = name().replace('_', '.');
+        this.minRegistrationYears = minRegistrationYears;
+        this.maxRegistrationYears = maxRegistrationYears;
     }
 
     public TldCategory getCategory() {
         return category;
+    }
+
+    public int getMinRegistrationYears() {
+        return minRegistrationYears;
+    }
+
+    public int getMaxRegistrationYears() {
+        return maxRegistrationYears;
     }
 
     @Override

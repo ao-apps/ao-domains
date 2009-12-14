@@ -5,7 +5,7 @@ package com.aoindustries.domains;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.util.Country;
+import com.aoindustries.util.i18n.Country;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

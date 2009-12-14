@@ -39,7 +39,7 @@ public interface DomainRegistrar {
     Map<Domain,Boolean> checkAvailability(Set<Domain> domains) throws IOException;
 
     /**
-     * Gets the cost per year to register a domain in the given top level domains.
+     * Gets the cost per year to register a domain in the given top level domain.
      */
     Money getRegisterCost(Currency currency, Tld tld, int numYears) throws IOException;
 }

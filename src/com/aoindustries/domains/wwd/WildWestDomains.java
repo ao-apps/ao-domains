@@ -21,13 +21,16 @@ import com.aoindustries.domains.wwd.wapi.ResourceRenewal;
 import com.aoindustries.domains.wwd.wapi.Shopper;
 import com.aoindustries.domains.wwd.wapi.WAPILocator;
 import com.aoindustries.domains.wwd.wapi.WAPISoap_PortType;
+import com.aoindustries.util.i18n.Money;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Currency;
 import java.util.EnumSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -160,7 +163,7 @@ public class WildWestDomains implements DomainRegistrar {
             Tld.NET,
             Tld.ME,
             Tld.BIZ,
-            Tld.IT,
+            // No pricing available: Tld.IT,
             Tld.ORG,
             Tld.MOBI,
             //TLD.COM_ES,
@@ -197,7 +200,7 @@ public class WildWestDomains implements DomainRegistrar {
             Tld.NET,
             Tld.ME,
             Tld.BIZ,
-            Tld.IT,
+            // No pricing available: Tld.IT,
             Tld.ORG,
             Tld.MOBI,
             //TLD.COM_ES,
@@ -251,7 +254,7 @@ public class WildWestDomains implements DomainRegistrar {
 
     public Map<Domain,Boolean> checkAvailability(Set<Domain> domains) throws IOException {
         Map<String,Domain> byString = new LinkedHashMap<String,Domain>(domains.size()*4/3+1);
-        for(Domain domain : domains) byString.put(domain.toString(), domain);
+        for(Domain domain : domains) byString.put(domain.toString().toLowerCase(Locale.ENGLISH), domain);
         String response = getSoap().checkAvailability(
             UUID.randomUUID().toString(),
             new Credential(account, password),
@@ -270,11 +273,11 @@ public class WildWestDomains implements DomainRegistrar {
                 Node node = nodeList.item(c);
                 if(!(node instanceof Element)) throw new IOException("TODO: "+response);
                 Element elem = (Element)node;
-                results.put(byString.get(elem.getAttribute("name").toUpperCase(Locale.ENGLISH)), "1".equals(elem.getAttribute("avail")));
+                results.put(byString.get(elem.getAttribute("name").toLowerCase(Locale.ENGLISH)), "1".equals(elem.getAttribute("avail")));
             }
             // Make sure each domain was found
             for(Domain domain : domains) if(!results.containsKey(domain)) throw new IOException("TODO: Domain not in results: "+domain);
-            return results;
+            return Collections.unmodifiableMap(results);
         } catch(XPathExpressionException err) {
             IOException ioErr = new IOException();
             ioErr.initCause(err);
@@ -738,5 +741,55 @@ public class WildWestDomains implements DomainRegistrar {
             "United States",
             null
         );
+    }
+
+    private static final Currency USD = Currency.getInstance("USD");
+
+    public Money getRegisterCost(Currency currency, Tld tld, int numYears) throws IOException {
+        int minYears = tld.getMinRegistrationYears();
+        if(numYears<minYears) throw new IllegalArgumentException("numYears<minYears: "+numYears+"<"+minYears);
+        int maxYears = tld.getMaxRegistrationYears();
+        if(numYears>maxYears) throw new IllegalArgumentException("numYears>maxYears: "+numYears+">"+maxYears);
+        if(currency==USD) {
+            // Prices last set on 2009-12-14
+            switch(tld) {
+                case COM:
+                case NET:
+                case ORG:
+                case INFO:
+                case BIZ:
+                case US:
+                    return new Money(USD, new BigDecimal("7.49"));
+                case WS:
+                    return new Money(USD, new BigDecimal("7.99"));
+                case ES:
+                    return new Money(USD, new BigDecimal("11.99"));
+                case MOBI:
+                case IN:
+                case CO_IN:
+                case FIRM_IN:
+                case GEN_IN:
+                case IND_IN:
+                case NET_IN:
+                case ORG_IN:
+                    return new Money(USD, new BigDecimal("12.99"));
+                case ME:
+                    return new Money(USD, new BigDecimal("16.99"));
+                case BZ:
+                    return new Money(USD, new BigDecimal("17.49"));
+                case COM_BZ:
+                case NET_BZ:
+                case NL:
+                    return new Money(USD, new BigDecimal("19.99"));
+                case COM_MX:
+                    return new Money(USD, new BigDecimal("28.99"));
+                //case MX:
+                //    return new Money(USD, new BigDecimal("31.99"));
+                case TV:
+                    return new Money(USD, new BigDecimal("39.99"));
+                default:
+                    throw new IOException("Registration cost not known: currency="+currency+", tld="+tld);
+            }
+        } else throw new IllegalArgumentException("Unsupported currency: "+currency);
     }
 }
