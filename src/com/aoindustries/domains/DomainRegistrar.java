@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * @author  AO Industries, Inc.
  */
-public interface DomainsProvider {
+public interface DomainRegistrar {
 
     /**
      * Gets the unique identifier for this provider.  The persistence layer may enforce unique

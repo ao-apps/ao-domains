@@ -12,13 +12,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Creates instances of <code>DomainsProvider</code>s based on the provided
+ * Creates instances of <code>DomainRegistrar</code>s based on the provided
  * parameters.
  * Will only create once instance of each unique set of parameters.
  *
  * @author  AO Industries, Inc.
  */
-public class DomainsProviderFactory {
+public class DomainRegistrarFactory {
 
     private static class ProviderKey {
 
@@ -73,14 +73,14 @@ public class DomainsProviderFactory {
         }
     }
 
-    final private static Map<ProviderKey,DomainsProvider> providers = new HashMap<ProviderKey,DomainsProvider>();
+    final private static Map<ProviderKey,DomainRegistrar> providers = new HashMap<ProviderKey,DomainRegistrar>();
 
     /**
      * Gets the provider for the given parameters.<br>
      * <br>
      * Only one instance of each unique providerId, classname and all parameters will be created.<br>
      */
-    public static DomainsProvider getDomainsProvider(
+    public static DomainRegistrar getDomainRegistrar(
         String providerId,
         String className,
         String param1,
@@ -101,14 +101,14 @@ public class DomainsProviderFactory {
         // Now synchronize access to processors
         synchronized(providers) {
             // Look for existing instance
-            DomainsProvider provider = providers.get(processorKey);
+            DomainRegistrar provider = providers.get(processorKey);
             if(provider==null) {
                 // Instantiate through reflection
-                Class<? extends DomainsProvider> clazz = Class.forName(className).asSubclass(DomainsProvider.class);
+                Class<? extends DomainRegistrar> clazz = Class.forName(className).asSubclass(DomainRegistrar.class);
 
                 // Try the providerId + 4-parameter constructor
                 try {
-                    Constructor<? extends DomainsProvider> constructor = clazz.getConstructor(String.class, String.class, String.class, String.class, String.class);
+                    Constructor<? extends DomainRegistrar> constructor = clazz.getConstructor(String.class, String.class, String.class, String.class, String.class);
                     provider = constructor.newInstance(providerId, param1, param2, param3, param4);
                 } catch(NoSuchMethodException err) {
                     // Fall through to next param set
@@ -123,7 +123,7 @@ public class DomainsProviderFactory {
                 if(provider==null) {
                     // Try the providerId + 3-parameter constructor
                     try {
-                        Constructor<? extends DomainsProvider> constructor = clazz.getConstructor(String.class, String.class, String.class, String.class);
+                        Constructor<? extends DomainRegistrar> constructor = clazz.getConstructor(String.class, String.class, String.class, String.class);
                         provider = constructor.newInstance(providerId, param1, param2, param3);
                     } catch(NoSuchMethodException err) {
                         // Fall through to next param set
@@ -139,7 +139,7 @@ public class DomainsProviderFactory {
                 if(provider==null) {
                     // Try the providerId + 2-parameter constructor
                     try {
-                        Constructor<? extends DomainsProvider> constructor = clazz.getConstructor(String.class, String.class, String.class);
+                        Constructor<? extends DomainRegistrar> constructor = clazz.getConstructor(String.class, String.class, String.class);
                         provider = constructor.newInstance(providerId, param1, param2);
                     } catch(NoSuchMethodException err) {
                         // Fall through to next param set
@@ -155,7 +155,7 @@ public class DomainsProviderFactory {
                 if(provider==null) {
                     // Try the providerId + 1-parameter constructor
                     try {
-                        Constructor<? extends DomainsProvider> constructor = clazz.getConstructor(String.class, String.class);
+                        Constructor<? extends DomainRegistrar> constructor = clazz.getConstructor(String.class, String.class);
                         provider = constructor.newInstance(providerId, param1);
                     } catch(NoSuchMethodException err) {
                         // Fall through to next param set
@@ -170,7 +170,7 @@ public class DomainsProviderFactory {
 
                 if(provider==null) {
                     // Try the providerId constructor, if fails allow exception to go out of this method
-                    Constructor<? extends DomainsProvider> constructor = clazz.getConstructor(String.class);
+                    Constructor<? extends DomainRegistrar> constructor = clazz.getConstructor(String.class);
                     provider = constructor.newInstance(providerId);
                 }
                 
@@ -181,7 +181,7 @@ public class DomainsProviderFactory {
         }
     }
 
-    private DomainsProviderFactory() {
+    private DomainRegistrarFactory() {
         // Make no instances
     }
 }

@@ -6,7 +6,7 @@ package com.aoindustries.domains.wwd;
  * All rights reserved.
  */
 import com.aoindustries.domains.Domain;
-import com.aoindustries.domains.DomainsProvider;
+import com.aoindustries.domains.DomainRegistrar;
 import com.aoindustries.domains.TLD;
 import com.aoindustries.domains.wwd.wapi.ContactInfo;
 import com.aoindustries.domains.wwd.wapi.Credential;
@@ -75,7 +75,7 @@ import org.w3c.dom.NodeList;
  *
  * @author  AO Industries, Inc.
  */
-public class WildWestDomains implements DomainsProvider {
+public class WildWestDomains implements DomainRegistrar {
 
     /**
      * The production web services URL.
