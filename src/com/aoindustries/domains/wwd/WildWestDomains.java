@@ -7,7 +7,7 @@ package com.aoindustries.domains.wwd;
  */
 import com.aoindustries.domains.Domain;
 import com.aoindustries.domains.DomainRegistrar;
-import com.aoindustries.domains.TLD;
+import com.aoindustries.domains.Tld;
 import com.aoindustries.domains.wwd.wapi.ContactInfo;
 import com.aoindustries.domains.wwd.wapi.Credential;
 import com.aoindustries.domains.wwd.wapi.DomainByProxy;
@@ -32,6 +32,7 @@ import java.util.EnumSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -152,77 +153,77 @@ public class WildWestDomains implements DomainRegistrar {
         return providerId;
     }
 
-    private static final Set<TLD> registerTlds = Collections.unmodifiableSet(
+    private static final Set<Tld> registerTlds = Collections.unmodifiableSet(
         EnumSet.of(
-            TLD.COM,
-            TLD.INFO,
-            TLD.NET,
-            TLD.ME,
-            TLD.BIZ,
-            TLD.IT,
-            TLD.ORG,
-            TLD.MOBI,
-            TLD.COM_ES,
-            TLD.MX,
-            TLD.WS,
-            TLD.NOM_ES,
-            TLD.US,
-            TLD.ES,
-            TLD.ORG_ES,
-            TLD.NL,
-            TLD.IN,
-            TLD.COM_MX,
-            TLD.BZ,
-            TLD.COM_BZ,
-            TLD.NET_BZ,
-            TLD.CO_IN,
-            TLD.FIRM_IN,
-            TLD.GEN_IN,
-            TLD.IND_IN,
-            TLD.NET_IN,
-            TLD.ORG_IN,
-            TLD.TV
+            Tld.COM,
+            Tld.INFO,
+            Tld.NET,
+            Tld.ME,
+            Tld.BIZ,
+            Tld.IT,
+            Tld.ORG,
+            Tld.MOBI,
+            //TLD.COM_ES,
+            //Tld.MX,
+            Tld.WS,
+            //TLD.NOM_ES,
+            Tld.US,
+            Tld.ES,
+            //TLD.ORG_ES,
+            Tld.NL,
+            Tld.IN,
+            Tld.COM_MX,
+            Tld.BZ,
+            Tld.COM_BZ,
+            Tld.NET_BZ,
+            Tld.CO_IN,
+            Tld.FIRM_IN,
+            Tld.GEN_IN,
+            Tld.IND_IN,
+            Tld.NET_IN,
+            Tld.ORG_IN,
+            Tld.TV
         )
     );
 
-    public Set<TLD> getRegisterTlds() {
+    public Set<Tld> getRegisterTlds() {
         return registerTlds;
     }
 
-    private static final Set<TLD> transferTlds = Collections.unmodifiableSet(
+    private static final Set<Tld> transferTlds = Collections.unmodifiableSet(
         EnumSet.of(
-            TLD.COM,
-            TLD.INFO,
-            TLD.NET,
-            TLD.ME,
-            TLD.BIZ,
-            TLD.IT,
-            TLD.ORG,
-            TLD.MOBI,
-            TLD.COM_ES,
+            Tld.COM,
+            Tld.INFO,
+            Tld.NET,
+            Tld.ME,
+            Tld.BIZ,
+            Tld.IT,
+            Tld.ORG,
+            Tld.MOBI,
+            //TLD.COM_ES,
             //TLD.MX,
-            TLD.WS,
-            TLD.NOM_ES,
-            TLD.US,
-            TLD.ES,
-            TLD.ORG_ES,
+            Tld.WS,
+            //TLD.NOM_ES,
+            Tld.US,
+            Tld.ES,
+            //TLD.ORG_ES,
             //TLD.NL,
-            TLD.IN,
-            TLD.COM_MX,
-            TLD.BZ,
-            TLD.COM_BZ,
-            TLD.NET_BZ,
-            TLD.CO_IN,
-            TLD.FIRM_IN,
-            TLD.GEN_IN,
-            TLD.IND_IN,
-            TLD.NET_IN,
-            TLD.ORG_IN,
-            TLD.TV
+            Tld.IN,
+            Tld.COM_MX,
+            Tld.BZ,
+            Tld.COM_BZ,
+            Tld.NET_BZ,
+            Tld.CO_IN,
+            Tld.FIRM_IN,
+            Tld.GEN_IN,
+            Tld.IND_IN,
+            Tld.NET_IN,
+            Tld.ORG_IN,
+            Tld.TV
         )
     );
 
-    public Set<TLD> getTransferTlds() {
+    public Set<Tld> getTransferTlds() {
         return transferTlds;
     }
 
@@ -260,6 +261,7 @@ public class WildWestDomains implements DomainRegistrar {
         );
         logger.fine(response);
         Document document = transform(response);
+        if(document.getFirstChild().getNodeName().equals("error")) throw new IOException("TODO: "+response);
         XPath xpath = XPathFactory.newInstance().newXPath();
         try {
             NodeList nodeList = (NodeList)xpath.evaluate("/check/domain", document, XPathConstants.NODESET);
@@ -268,8 +270,10 @@ public class WildWestDomains implements DomainRegistrar {
                 Node node = nodeList.item(c);
                 if(!(node instanceof Element)) throw new IOException("TODO: "+response);
                 Element elem = (Element)node;
-                results.put(byString.get(elem.getAttribute("name")), "1".equals(elem.getAttribute("avail")));
+                results.put(byString.get(elem.getAttribute("name").toUpperCase(Locale.ENGLISH)), "1".equals(elem.getAttribute("avail")));
             }
+            // Make sure each domain was found
+            for(Domain domain : domains) if(!results.containsKey(domain)) throw new IOException("TODO: Domain not in results: "+domain);
             return results;
         } catch(XPathExpressionException err) {
             IOException ioErr = new IOException();
@@ -679,8 +683,8 @@ public class WildWestDomains implements DomainRegistrar {
         // reset
         resetCertification();
         // availability
-        Domain exampleUs = new Domain("example", TLD.US);
-        Domain exampleBiz = new Domain("example", TLD.BIZ);
+        Domain exampleUs = new Domain("example", Tld.US);
+        Domain exampleBiz = new Domain("example", Tld.BIZ);
         Map<Domain,Boolean> availability = checkAvailability(new LinkedHashSet<Domain>(Arrays.asList(new Domain[] {exampleUs, exampleBiz})));
         if(!Boolean.TRUE.equals(availability.get(exampleUs))) throw new IOException("TODO: example.us is not available");
         if(!Boolean.TRUE.equals(availability.get(exampleBiz))) throw new IOException("TODO: example.biz is not available");

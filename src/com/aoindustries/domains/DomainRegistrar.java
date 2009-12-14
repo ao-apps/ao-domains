@@ -24,12 +24,12 @@ public interface DomainRegistrar {
     /**
      * Gets the set of top level domains supported by this provider.
      */
-    Set<TLD> getRegisterTlds() throws IOException;
+    Set<Tld> getRegisterTlds() throws IOException;
 
     /**
      * Gets the set of top level domains supported by this provider.
      */
-    Set<TLD> getTransferTlds() throws IOException;
+    Set<Tld> getTransferTlds() throws IOException;
 
     /**
      * Checks the availability of the provided domains.

@@ -25,12 +25,12 @@ public class Domain implements Comparable<Domain>, Validateable {
     public static final Pattern SLD_PATTERN = Pattern.compile("^[a-z0-9]+(-[a-z0-9]+)*$");
 
     private final String sld;
-    private final TLD tld;
+    private final Tld tld;
 
-    public Domain(String sld, TLD tld) {
+    public Domain(String sld, Tld tld) {
         if(sld==null) throw new IllegalArgumentException("sld==null");
         if(tld==null) throw new IllegalArgumentException("tld==null");
-        this.sld = sld.trim().toLowerCase(Locale.ENGLISH);
+        this.sld = sld.trim().toUpperCase(Locale.ENGLISH);
         this.tld = tld;
     }
 
@@ -38,7 +38,7 @@ public class Domain implements Comparable<Domain>, Validateable {
         return sld;
     }
 
-    public TLD getTld() {
+    public Tld getTld() {
         return tld;
     }
 

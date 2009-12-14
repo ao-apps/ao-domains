@@ -34,7 +34,7 @@ public class CertificationTest extends TestCase {
         return config.getProperty(name);
     }
 
-    private WildWestDomains wwd;
+    private WildWestDomains registrar;
 
     public CertificationTest(String testName) {
         super(testName);
@@ -42,7 +42,7 @@ public class CertificationTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        wwd = new WildWestDomains("wwdCertificationTest", WildWestDomains.OTE_PORT_ADDRESS, getConfig("account"), getConfig("password"));
+        registrar = new WildWestDomains("CertificationTest", WildWestDomains.OTE_PORT_ADDRESS, getConfig("account"), getConfig("password"));
     }
 
     @Override
@@ -55,6 +55,6 @@ public class CertificationTest extends TestCase {
     }
 
     public void testCertification() throws Exception {
-        wwd.certify();
+        registrar.certify();
     }
 }
