@@ -1,10 +1,10 @@
-package com.aoindustries.domains;
-
 /*
  * Copyright 2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.domains;
+
 import com.aoindustries.util.i18n.ApplicationResourcesAccessor;
 import com.aoindustries.util.i18n.EditableResourceBundle;
 import com.aoindustries.util.i18n.EditableResourceBundleSet;
@@ -23,7 +23,7 @@ public final class ApplicationResources extends EditableResourceBundle {
     static final EditableResourceBundleSet bundleSet = new EditableResourceBundleSet(
         ApplicationResources.class.getName(),
         Arrays.asList(
-            new Locale(""), // Locale.ROOT in Java 1.6
+            Locale.ROOT,
             Locale.JAPANESE
         )
     );
@@ -34,18 +34,18 @@ public final class ApplicationResources extends EditableResourceBundle {
     public ApplicationResources() {
         super(
             new File(System.getProperty("user.home")+"/common/ao/cvswork/ao-domains/src/com/aoindustries/domains/ApplicationResources.properties"),
-            new Locale(""),
+            Locale.ROOT,
             bundleSet
         );
     }
 
     static final ApplicationResourcesAccessor accessor = ApplicationResourcesAccessor.getInstance(bundleSet.getBaseName());
 
-    public static String getMessage(Locale locale, String key) {
-        return accessor.getMessage(locale, key);
+    public static String getMessage(String key) {
+        return accessor.getMessage(key);
     }
     
-    public static String getMessage(Locale locale, String key, Object... args) {
-        return accessor.getMessage(locale, key, args);
+    public static String getMessage(String key, Object... args) {
+        return accessor.getMessage(key, args);
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 by AO Industries, Inc.,
+ * Copyright 2009-2010 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -68,13 +68,13 @@ public class Domain implements Comparable<Domain>, Validateable {
     private static void addError(Map<String,List<String>> errors, String fieldName, String key) {
         List<String> list = errors.get(fieldName);
         if(list==null) errors.put(fieldName, list = new ArrayList<String>());
-        list.add(ApplicationResources.getMessage(key));
+        list.add(ApplicationResources.accessor.getMessage(key));
     }
 
     private static void addError(Map<String,List<String>> errors, String fieldName, String key, Object... args) {
         List<String> list = errors.get(fieldName);
         if(list==null) errors.put(fieldName, list = new ArrayList<String>());
-        list.add(ApplicationResources.getMessage(key, args));
+        list.add(ApplicationResources.accessor.getMessage(key, args));
     }
 
     public Map<String, List<String>> validate() {
