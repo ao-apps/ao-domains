@@ -1,15 +1,14 @@
-package com.aoindustries.domains;
-
 /*
  * Copyright 2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.domains;
+
 import com.aoindustries.util.i18n.Country;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 import org.apache.commons.validator.GenericValidator;
@@ -75,7 +74,6 @@ public class ContactInfo implements Validateable {
      * Creates an empty ContactInfo.  The values should be set using the appropriate setter methods.
      */
     public ContactInfo(
-        Locale userLocale,
         String firstName,
         String lastName,
         String companyName,
@@ -271,94 +269,94 @@ public class ContactInfo implements Validateable {
         this.country = country;
     }
 
-    private static void addError(Locale userLocale, Map<String,List<String>> errors, String fieldName, String key) {
+    private static void addError(Map<String,List<String>> errors, String fieldName, String key) {
         List<String> list = errors.get(fieldName);
         if(list==null) errors.put(fieldName, list = new ArrayList<String>());
-        list.add(ApplicationResources.getMessage(userLocale, key));
+        list.add(ApplicationResources.getMessage(key));
     }
 
-    private static void addError(Locale userLocale, Map<String,List<String>> errors, String fieldName, String key, Object... args) {
+    private static void addError(Map<String,List<String>> errors, String fieldName, String key, Object... args) {
         List<String> list = errors.get(fieldName);
         if(list==null) errors.put(fieldName, list = new ArrayList<String>());
-        list.add(ApplicationResources.getMessage(userLocale, key, args));
+        list.add(ApplicationResources.getMessage(key, args));
     }
 
-    public Map<String,List<String>> validate(Locale userLocale) {
+    public Map<String,List<String>> validate() {
         Map<String,List<String>> errors = new HashMap<String,List<String>>();
         if(firstName!=null) {
-            if(firstName.length()>FIRST_NAME_MAX_LENGTH) addError(userLocale, errors, "firstName", "ContactInfo.validate.firstName.tooLong", FIRST_NAME_MAX_LENGTH);
-            if(!FIRST_NAME_PATTERN.matcher(firstName).matches()) addError(userLocale, errors, "firstName", "ContactInfo.validate.firstName.invalid");
+            if(firstName.length()>FIRST_NAME_MAX_LENGTH) addError(errors, "firstName", "ContactInfo.validate.firstName.tooLong", FIRST_NAME_MAX_LENGTH);
+            if(!FIRST_NAME_PATTERN.matcher(firstName).matches()) addError(errors, "firstName", "ContactInfo.validate.firstName.invalid");
         }
         if(lastName!=null) {
-            if(lastName.length()>LAST_NAME_MAX_LENGTH) addError(userLocale, errors, "lastName", "ContactInfo.validate.lastName.tooLong", LAST_NAME_MAX_LENGTH);
-            if(!LAST_NAME_PATTERN.matcher(lastName).matches()) addError(userLocale, errors, "lastName", "ContactInfo.validate.lastName.invalid");
+            if(lastName.length()>LAST_NAME_MAX_LENGTH) addError(errors, "lastName", "ContactInfo.validate.lastName.tooLong", LAST_NAME_MAX_LENGTH);
+            if(!LAST_NAME_PATTERN.matcher(lastName).matches()) addError(errors, "lastName", "ContactInfo.validate.lastName.invalid");
         }
         if(companyName==null) {
-            if(firstName==null) addError(userLocale, errors, "firstName", "ContactInfo.validate.firstName.requiredWhenNoCompanyName");
-            if(lastName==null) addError(userLocale, errors, "lastName", "ContactInfo.validate.lastName.requiredWhenNoCompanyName");
+            if(firstName==null) addError(errors, "firstName", "ContactInfo.validate.firstName.requiredWhenNoCompanyName");
+            if(lastName==null) addError(errors, "lastName", "ContactInfo.validate.lastName.requiredWhenNoCompanyName");
         } else {
-            if(companyName.length()>COMPANY_NAME_MAX_LENGTH) addError(userLocale, errors, "companyName", "ContactInfo.validate.companyName.tooLong", COMPANY_NAME_MAX_LENGTH);
-            if(!COMPANY_NAME_PATTERN.matcher(companyName).matches()) addError(userLocale, errors, "companyName", "ContactInfo.validate.companyName.invalid");
+            if(companyName.length()>COMPANY_NAME_MAX_LENGTH) addError(errors, "companyName", "ContactInfo.validate.companyName.tooLong", COMPANY_NAME_MAX_LENGTH);
+            if(!COMPANY_NAME_PATTERN.matcher(companyName).matches()) addError(errors, "companyName", "ContactInfo.validate.companyName.invalid");
         }
-        if(email==null) addError(userLocale, errors, "email", "ContactInfo.validate.email.required");
+        if(email==null) addError(errors, "email", "ContactInfo.validate.email.required");
         else {
-            if(email.length()>EMAIL_MAX_LENGTH) addError(userLocale, errors, "email", "ContactInfo.validate.email.tooLong", EMAIL_MAX_LENGTH);
-            if(!GenericValidator.isEmail(email)) addError(userLocale, errors, "email", "ContactInfo.validate.email.invalid");
+            if(email.length()>EMAIL_MAX_LENGTH) addError(errors, "email", "ContactInfo.validate.email.tooLong", EMAIL_MAX_LENGTH);
+            if(!GenericValidator.isEmail(email)) addError(errors, "email", "ContactInfo.validate.email.invalid");
         }
-        if(streetAddress1==null) addError(userLocale, errors, "streetAddress1", "ContactInfo.validate.streetAddress1.required");
+        if(streetAddress1==null) addError(errors, "streetAddress1", "ContactInfo.validate.streetAddress1.required");
         else {
-            if(streetAddress1.length()>STREET_ADDRESS_1_MAX_LENGTH) addError(userLocale, errors, "streetAddress1", "ContactInfo.validate.streetAddress1.tooLong", STREET_ADDRESS_1_MAX_LENGTH);
-            if(!STREET_ADDRESS_1_PATTERN.matcher(streetAddress1).matches()) addError(userLocale, errors, "streetAddress1", "ContactInfo.validate.streetAddress1.invalid");
+            if(streetAddress1.length()>STREET_ADDRESS_1_MAX_LENGTH) addError(errors, "streetAddress1", "ContactInfo.validate.streetAddress1.tooLong", STREET_ADDRESS_1_MAX_LENGTH);
+            if(!STREET_ADDRESS_1_PATTERN.matcher(streetAddress1).matches()) addError(errors, "streetAddress1", "ContactInfo.validate.streetAddress1.invalid");
         }
         if(streetAddress2!=null) {
-            if(streetAddress2.length()>STREET_ADDRESS_2_MAX_LENGTH) addError(userLocale, errors, "streetAddress2", "ContactInfo.validate.streetAddress2.tooLong", STREET_ADDRESS_2_MAX_LENGTH);
-            if(!STREET_ADDRESS_2_PATTERN.matcher(streetAddress2).matches()) addError(userLocale, errors, "streetAddress2", "ContactInfo.validate.streetAddress2.invalid");
+            if(streetAddress2.length()>STREET_ADDRESS_2_MAX_LENGTH) addError(errors, "streetAddress2", "ContactInfo.validate.streetAddress2.tooLong", STREET_ADDRESS_2_MAX_LENGTH);
+            if(!STREET_ADDRESS_2_PATTERN.matcher(streetAddress2).matches()) addError(errors, "streetAddress2", "ContactInfo.validate.streetAddress2.invalid");
         }
-        if(city==null) addError(userLocale, errors, "city", "ContactInfo.validate.city.required");
+        if(city==null) addError(errors, "city", "ContactInfo.validate.city.required");
         else {
-            if(city.length()>CITY_MAX_LENGTH) addError(userLocale, errors, "city", "ContactInfo.validate.city.tooLong", CITY_MAX_LENGTH);
-            if(!CITY_PATTERN.matcher(city).matches()) addError(userLocale, errors, "city", "ContactInfo.validate.city.invalid");
+            if(city.length()>CITY_MAX_LENGTH) addError(errors, "city", "ContactInfo.validate.city.tooLong", CITY_MAX_LENGTH);
+            if(!CITY_PATTERN.matcher(city).matches()) addError(errors, "city", "ContactInfo.validate.city.invalid");
         }
         if(state==null) {
-            if(country==Country.US || country==Country.CA) addError(userLocale, errors, "state", "ContactInfo.validate.state.required");
+            if(country==Country.US || country==Country.CA) addError(errors, "state", "ContactInfo.validate.state.required");
         } else {
-            if(state.length()>STATE_MAX_LENGTH) addError(userLocale, errors, "state", "ContactInfo.validate.state.tooLong", STATE_MAX_LENGTH);
-            if(!STATE_PATTERN.matcher(state).matches()) addError(userLocale, errors, "state", "ContactInfo.validate.state.invalid");
+            if(state.length()>STATE_MAX_LENGTH) addError(errors, "state", "ContactInfo.validate.state.tooLong", STATE_MAX_LENGTH);
+            if(!STATE_PATTERN.matcher(state).matches()) addError(errors, "state", "ContactInfo.validate.state.invalid");
             if(country!=null) {
                 List<String> states = country.getStates();
-                if(states!=null && !states.contains(state)) addError(userLocale, errors, "state", "ContactInfo.validate.state.notInList");
+                if(states!=null && !states.contains(state)) addError(errors, "state", "ContactInfo.validate.state.notInList");
             }
         }
-        if(postalCode==null) addError(userLocale, errors, "postalCode", "ContactInfo.validate.postalCode.required");
+        if(postalCode==null) addError(errors, "postalCode", "ContactInfo.validate.postalCode.required");
         else {
-            if(postalCode.length()>POSTAL_CODE_MAX_LENGTH) addError(userLocale, errors, "postalCode", "ContactInfo.validate.postalCode.tooLong", POSTAL_CODE_MAX_LENGTH);
+            if(postalCode.length()>POSTAL_CODE_MAX_LENGTH) addError(errors, "postalCode", "ContactInfo.validate.postalCode.tooLong", POSTAL_CODE_MAX_LENGTH);
             if(country==Country.US) {
-                if(!POSTAL_CODE_PATTERN_US.matcher(postalCode).matches()) addError(userLocale, errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
+                if(!POSTAL_CODE_PATTERN_US.matcher(postalCode).matches()) addError(errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
             } else if(country==Country.GB) {
-                if(!POSTAL_CODE_PATTERN_GB.matcher(postalCode).matches()) addError(userLocale, errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
+                if(!POSTAL_CODE_PATTERN_GB.matcher(postalCode).matches()) addError(errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
             } else if(country==Country.DE) {
-                if(!POSTAL_CODE_PATTERN_DE.matcher(postalCode).matches()) addError(userLocale, errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
+                if(!POSTAL_CODE_PATTERN_DE.matcher(postalCode).matches()) addError(errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
             } else if(country==Country.CA) {
-                if(!POSTAL_CODE_PATTERN_CA.matcher(postalCode).matches()) addError(userLocale, errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
+                if(!POSTAL_CODE_PATTERN_CA.matcher(postalCode).matches()) addError(errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
             } else if(country==Country.AU) {
-                if(!POSTAL_CODE_PATTERN_AU.matcher(postalCode).matches()) addError(userLocale, errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
+                if(!POSTAL_CODE_PATTERN_AU.matcher(postalCode).matches()) addError(errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
             } else if(country==Country.BR) {
-                if(!POSTAL_CODE_PATTERN_BR.matcher(postalCode).matches()) addError(userLocale, errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
+                if(!POSTAL_CODE_PATTERN_BR.matcher(postalCode).matches()) addError(errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
             } else if(country==Country.NL) {
-                if(!POSTAL_CODE_PATTERN_NL.matcher(postalCode).matches()) addError(userLocale, errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
+                if(!POSTAL_CODE_PATTERN_NL.matcher(postalCode).matches()) addError(errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
             } else {
-                if(!POSTAL_CODE_PATTERN.matcher(postalCode).matches()) addError(userLocale, errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
+                if(!POSTAL_CODE_PATTERN.matcher(postalCode).matches()) addError(errors, "postalCode", "ContactInfo.validate.postalCode.invalid");
             }
         }
-        if(country==null) addError(userLocale, errors, "country", "ContactInfo.validate.country.required");
-        if(phone==null) addError(userLocale, errors, "phone", "ContactInfo.validate.phone.required");
+        if(country==null) addError(errors, "country", "ContactInfo.validate.country.required");
+        if(phone==null) addError(errors, "phone", "ContactInfo.validate.phone.required");
         else {
-            if(phone.length()>PHONE_MAX_LENGTH) addError(userLocale, errors, "phone", "ContactInfo.validate.phone.tooLong", PHONE_MAX_LENGTH);
-            if(!PHONE_PATTERN.matcher(phone).matches()) addError(userLocale, errors, "phone", "ContactInfo.validate.phone.invalid");
+            if(phone.length()>PHONE_MAX_LENGTH) addError(errors, "phone", "ContactInfo.validate.phone.tooLong", PHONE_MAX_LENGTH);
+            if(!PHONE_PATTERN.matcher(phone).matches()) addError(errors, "phone", "ContactInfo.validate.phone.invalid");
         }
         if(fax!=null) {
-            if(fax.length()>FAX_MAX_LENGTH) addError(userLocale, errors, "fax", "ContactInfo.validate.fax.tooLong", FAX_MAX_LENGTH);
-            if(!FAX_PATTERN.matcher(fax).matches()) addError(userLocale, errors, "fax", "ContactInfo.validate.fax.invalid");
+            if(fax.length()>FAX_MAX_LENGTH) addError(errors, "fax", "ContactInfo.validate.fax.tooLong", FAX_MAX_LENGTH);
+            if(!FAX_PATTERN.matcher(fax).matches()) addError(errors, "fax", "ContactInfo.validate.fax.invalid");
         }
         return errors;
     }

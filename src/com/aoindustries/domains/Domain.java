@@ -1,3 +1,8 @@
+/*
+ * Copyright 2009 by AO Industries, Inc.,
+ * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
+ * All rights reserved.
+ */
 package com.aoindustries.domains;
 
 import java.util.ArrayList;
@@ -6,12 +11,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
-
-/*
- * Copyright 2009 by AO Industries, Inc.,
- * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
- * All rights reserved.
- */
 
 /**
  * A domain is a combination of a second level domain and a top level domain.
@@ -66,23 +65,23 @@ public class Domain implements Comparable<Domain>, Validateable {
         return sld.compareTo(other.sld);
     }
 
-    private static void addError(Locale userLocale, Map<String,List<String>> errors, String fieldName, String key) {
+    private static void addError(Map<String,List<String>> errors, String fieldName, String key) {
         List<String> list = errors.get(fieldName);
         if(list==null) errors.put(fieldName, list = new ArrayList<String>());
-        list.add(ApplicationResources.getMessage(userLocale, key));
+        list.add(ApplicationResources.getMessage(key));
     }
 
-    private static void addError(Locale userLocale, Map<String,List<String>> errors, String fieldName, String key, Object... args) {
+    private static void addError(Map<String,List<String>> errors, String fieldName, String key, Object... args) {
         List<String> list = errors.get(fieldName);
         if(list==null) errors.put(fieldName, list = new ArrayList<String>());
-        list.add(ApplicationResources.getMessage(userLocale, key, args));
+        list.add(ApplicationResources.getMessage(key, args));
     }
 
-    public Map<String, List<String>> validate(Locale userLocale) {
+    public Map<String, List<String>> validate() {
         Map<String,List<String>> errors = new HashMap<String,List<String>>();
-        if(sld.length()<SLD_MIN_LENGTH) addError(userLocale, errors, "sld", "Domain.validate.sld.tooShort", SLD_MIN_LENGTH);
-        if(sld.length()>SLD_MAX_LENGTH) addError(userLocale, errors, "sld", "Domain.validate.sld.tooLong", SLD_MAX_LENGTH);
-        if(!SLD_PATTERN.matcher(sld).matches()) addError(userLocale, errors, "sld", "Domain.validate.sld.invalid");
+        if(sld.length()<SLD_MIN_LENGTH) addError(errors, "sld", "Domain.validate.sld.tooShort", SLD_MIN_LENGTH);
+        if(sld.length()>SLD_MAX_LENGTH) addError(errors, "sld", "Domain.validate.sld.tooLong", SLD_MAX_LENGTH);
+        if(!SLD_PATTERN.matcher(sld).matches()) addError(errors, "sld", "Domain.validate.sld.invalid");
         return errors;
     }
 }

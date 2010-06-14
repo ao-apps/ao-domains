@@ -1,10 +1,10 @@
-package com.aoindustries.domains.wwd;
-
 /*
  * Copyright 2009 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.domains.wwd;
+
 import com.aoindustries.domains.Domain;
 import com.aoindustries.domains.DomainRegistrar;
 import com.aoindustries.domains.Tld;
@@ -152,6 +152,7 @@ public class WildWestDomains implements DomainRegistrar {
         this.password = password;
     }
 
+    @Override
     public String getProviderId() {
         return providerId;
     }
@@ -189,6 +190,7 @@ public class WildWestDomains implements DomainRegistrar {
         )
     );
 
+    @Override
     public Set<Tld> getRegisterTlds() {
         return registerTlds;
     }
@@ -226,6 +228,7 @@ public class WildWestDomains implements DomainRegistrar {
         )
     );
 
+    @Override
     public Set<Tld> getTransferTlds() {
         return transferTlds;
     }
@@ -252,6 +255,7 @@ public class WildWestDomains implements DomainRegistrar {
         }
     }
 
+    @Override
     public Map<Domain,Boolean> checkAvailability(Set<Domain> domains) throws IOException {
         Map<String,Domain> byString = new LinkedHashMap<String,Domain>(domains.size()*4/3+1);
         for(Domain domain : domains) byString.put(domain.toString().toLowerCase(Locale.ENGLISH), domain);
@@ -745,6 +749,7 @@ public class WildWestDomains implements DomainRegistrar {
 
     private static final Currency USD = Currency.getInstance("USD");
 
+    @Override
     public Money getRegisterCost(Currency currency, Tld tld, int numYears) throws IOException {
         int minYears = tld.getMinRegistrationYears();
         if(numYears<minYears) throw new IllegalArgumentException("numYears<minYears: "+numYears+"<"+minYears);
