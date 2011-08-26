@@ -33,9 +33,9 @@ public final class ApplicationResources extends EditableResourceBundle {
      */
     public ApplicationResources() {
         super(
-            new File(System.getProperty("user.home")+"/common/ao/cvswork/ao-domains/src/com/aoindustries/domains/ApplicationResources.properties"),
             Locale.ROOT,
-            bundleSet
+            bundleSet,
+            new File(System.getProperty("user.home")+"/common/ao/cvswork/ao-domains/src/com/aoindustries/domains/ApplicationResources.properties")
         );
     }
 
