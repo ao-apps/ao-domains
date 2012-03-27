@@ -1,11 +1,11 @@
-package com.aoindustries.domains;
-
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009-2012 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.util.StringUtility;
+package com.aoindustries.domains;
+
+import com.aoindustries.lang.ObjectUtils;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -65,10 +65,10 @@ public class DomainRegistrarFactory {
             return
                 providerId.equals(other.providerId)
                 && className.equals(other.className)
-                && StringUtility.equals(param1, other.param1)
-                && StringUtility.equals(param2, other.param2)
-                && StringUtility.equals(param3, other.param3)
-                && StringUtility.equals(param4, other.param4)
+                && ObjectUtils.equals(param1, other.param1)
+                && ObjectUtils.equals(param2, other.param2)
+                && ObjectUtils.equals(param3, other.param3)
+                && ObjectUtils.equals(param4, other.param4)
             ;
         }
     }
