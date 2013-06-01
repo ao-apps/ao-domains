@@ -7,8 +7,8 @@ package com.aoindustries.domains.manual;
 import com.aoindustries.domains.DomainRegistrar;
 import com.aoindustries.domains.DomainRegistrarParent;
 import com.aoindustries.domains.wwd.WildWestDomains;
+import com.aoindustries.util.PropertiesUtils;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -20,17 +20,7 @@ public class ManualRegistrarTest extends DomainRegistrarParent {
     
     private static Properties config;
     synchronized private static String getConfig(String name) throws IOException {
-        if(config==null) {
-            InputStream in = ManualRegistrarTest.class.getResourceAsStream("ManualRegistrarTest.properties");
-            if(in==null) throw new IOException("Unable to find resource: ManualRegistrarTest.properties");
-            try {
-                Properties props = new Properties();
-                props.load(in);
-                config = props;
-            } finally {
-                in.close();
-            }
-        }
+        if(config==null) config = PropertiesUtils.loadFromResource(ManualRegistrarTest.class, "ManualRegistrarTest.properties");
         return config.getProperty(name);
     }
 

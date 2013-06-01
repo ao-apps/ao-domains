@@ -6,8 +6,8 @@ package com.aoindustries.domains.wwd;
  */
 import com.aoindustries.domains.DomainRegistrar;
 import com.aoindustries.domains.DomainRegistrarParent;
+import com.aoindustries.util.PropertiesUtils;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -19,17 +19,7 @@ public class WildWestDomainsTest extends DomainRegistrarParent {
     
     private static Properties config;
     synchronized private static String getConfig(String name) throws IOException {
-        if(config==null) {
-            InputStream in = WildWestDomainsTest.class.getResourceAsStream("WildWestDomainsTest.properties");
-            if(in==null) throw new IOException("Unable to find resource: WildWestDomainsTest.properties");
-            try {
-                Properties props = new Properties();
-                props.load(in);
-                config = props;
-            } finally {
-                in.close();
-            }
-        }
+        if(config==null) config = PropertiesUtils.loadFromResource(WildWestDomainsTest.class, "WildWestDomainsTest.properties");
         return config.getProperty(name);
     }
 

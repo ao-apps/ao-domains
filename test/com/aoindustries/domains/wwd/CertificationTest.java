@@ -4,8 +4,8 @@ package com.aoindustries.domains.wwd;
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+import com.aoindustries.util.PropertiesUtils;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -20,17 +20,7 @@ public class CertificationTest extends TestCase {
     
     private static Properties config;
     synchronized private static String getConfig(String name) throws IOException {
-        if(config==null) {
-            InputStream in = CertificationTest.class.getResourceAsStream("CertificationTest.properties");
-            if(in==null) throw new IOException("Unable to find resource: CertificationTest.properties");
-            try {
-                Properties props = new Properties();
-                props.load(in);
-                config = props;
-            } finally {
-                in.close();
-            }
-        }
+        if(config==null) config = PropertiesUtils.loadFromResource(CertificationTest.class, "CertificationTest.properties");
         return config.getProperty(name);
     }
 
