@@ -1,15 +1,14 @@
 /*
- * Copyright 2009-2012 by AO Industries, Inc.,
+ * Copyright 2009-2012, 2020 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 package com.aoindustries.domains;
 
-import com.aoindustries.lang.ObjectUtils;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Creates instances of <code>DomainRegistrar</code>s based on the provided
@@ -65,10 +64,10 @@ public class DomainRegistrarFactory {
             return
                 providerId.equals(other.providerId)
                 && className.equals(other.className)
-                && ObjectUtils.equals(param1, other.param1)
-                && ObjectUtils.equals(param2, other.param2)
-                && ObjectUtils.equals(param3, other.param3)
-                && ObjectUtils.equals(param4, other.param4)
+                && Objects.equals(param1, other.param1)
+                && Objects.equals(param2, other.param2)
+                && Objects.equals(param3, other.param3)
+                && Objects.equals(param4, other.param4)
             ;
         }
     }
@@ -87,7 +86,7 @@ public class DomainRegistrarFactory {
         String param2,
         String param3,
         String param4
-    ) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
+    ) throws ReflectiveOperationException {
         // The key in the map
         ProviderKey processorKey = new ProviderKey(
             providerId,
@@ -110,13 +109,7 @@ public class DomainRegistrarFactory {
                 try {
                     Constructor<? extends DomainRegistrar> constructor = clazz.getConstructor(String.class, String.class, String.class, String.class, String.class);
                     provider = constructor.newInstance(providerId, param1, param2, param3, param4);
-                } catch(NoSuchMethodException err) {
-                    // Fall through to next param set
-                } catch(IllegalAccessException err) {
-                    // Fall through to next param set
-                } catch(InstantiationException err) {
-                    // Fall through to next param set
-                } catch(InvocationTargetException err) {
+                } catch(ReflectiveOperationException err) {
                     // Fall through to next param set
                 }
 
@@ -125,13 +118,7 @@ public class DomainRegistrarFactory {
                     try {
                         Constructor<? extends DomainRegistrar> constructor = clazz.getConstructor(String.class, String.class, String.class, String.class);
                         provider = constructor.newInstance(providerId, param1, param2, param3);
-                    } catch(NoSuchMethodException err) {
-                        // Fall through to next param set
-                    } catch(IllegalAccessException err) {
-                        // Fall through to next param set
-                    } catch(InstantiationException err) {
-                        // Fall through to next param set
-                    } catch(InvocationTargetException err) {
+                    } catch(ReflectiveOperationException err) {
                         // Fall through to next param set
                     }
                 }
@@ -141,13 +128,7 @@ public class DomainRegistrarFactory {
                     try {
                         Constructor<? extends DomainRegistrar> constructor = clazz.getConstructor(String.class, String.class, String.class);
                         provider = constructor.newInstance(providerId, param1, param2);
-                    } catch(NoSuchMethodException err) {
-                        // Fall through to next param set
-                    } catch(IllegalAccessException err) {
-                        // Fall through to next param set
-                    } catch(InstantiationException err) {
-                        // Fall through to next param set
-                    } catch(InvocationTargetException err) {
+                    } catch(ReflectiveOperationException err) {
                         // Fall through to next param set
                     }
                 }
@@ -157,13 +138,7 @@ public class DomainRegistrarFactory {
                     try {
                         Constructor<? extends DomainRegistrar> constructor = clazz.getConstructor(String.class, String.class);
                         provider = constructor.newInstance(providerId, param1);
-                    } catch(NoSuchMethodException err) {
-                        // Fall through to next param set
-                    } catch(IllegalAccessException err) {
-                        // Fall through to next param set
-                    } catch(InstantiationException err) {
-                        // Fall through to next param set
-                    } catch(InvocationTargetException err) {
+                    } catch(ReflectiveOperationException err) {
                         // Fall through to next param set
                     }
                 }
