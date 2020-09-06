@@ -6,6 +6,7 @@
 package com.aoindustries.domains;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -86,7 +87,7 @@ public class DomainRegistrarFactory {
         String param2,
         String param3,
         String param4
-    ) throws ReflectiveOperationException {
+    ) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InstantiationException, InvocationTargetException {
         // The key in the map
         ProviderKey processorKey = new ProviderKey(
             providerId,
@@ -109,7 +110,9 @@ public class DomainRegistrarFactory {
                 try {
                     Constructor<? extends DomainRegistrar> constructor = clazz.getConstructor(String.class, String.class, String.class, String.class, String.class);
                     provider = constructor.newInstance(providerId, param1, param2, param3, param4);
-                } catch(ReflectiveOperationException err) {
+				} catch(InvocationTargetException e) {
+					throw e;
+                } catch(ReflectiveOperationException ignored) {
                     // Fall through to next param set
                 }
 
@@ -118,7 +121,9 @@ public class DomainRegistrarFactory {
                     try {
                         Constructor<? extends DomainRegistrar> constructor = clazz.getConstructor(String.class, String.class, String.class, String.class);
                         provider = constructor.newInstance(providerId, param1, param2, param3);
-                    } catch(ReflectiveOperationException err) {
+					} catch(InvocationTargetException e) {
+						throw e;
+                    } catch(ReflectiveOperationException ignored) {
                         // Fall through to next param set
                     }
                 }
@@ -128,7 +133,9 @@ public class DomainRegistrarFactory {
                     try {
                         Constructor<? extends DomainRegistrar> constructor = clazz.getConstructor(String.class, String.class, String.class);
                         provider = constructor.newInstance(providerId, param1, param2);
-                    } catch(ReflectiveOperationException err) {
+					} catch(InvocationTargetException e) {
+						throw e;
+                    } catch(ReflectiveOperationException ignored) {
                         // Fall through to next param set
                     }
                 }
@@ -138,7 +145,9 @@ public class DomainRegistrarFactory {
                     try {
                         Constructor<? extends DomainRegistrar> constructor = clazz.getConstructor(String.class, String.class);
                         provider = constructor.newInstance(providerId, param1);
-                    } catch(ReflectiveOperationException err) {
+					} catch(InvocationTargetException e) {
+						throw e;
+                    } catch(ReflectiveOperationException ignored) {
                         // Fall through to next param set
                     }
                 }
