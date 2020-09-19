@@ -1,10 +1,11 @@
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009-2011, 2020 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
 package com.aoindustries.domains.wwd;
 
+import com.aoindustries.collections.AoCollections;
 import com.aoindustries.domains.Domain;
 import com.aoindustries.domains.DomainRegistrar;
 import com.aoindustries.domains.Tld;
@@ -32,7 +33,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Currency;
 import java.util.EnumSet;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -257,7 +257,7 @@ public class WildWestDomains implements DomainRegistrar {
 
     @Override
     public Map<Domain,Boolean> checkAvailability(Set<Domain> domains) throws IOException {
-        Map<String,Domain> byString = new LinkedHashMap<String,Domain>(domains.size()*4/3+1);
+        Map<String,Domain> byString = AoCollections.newLinkedHashMap(domains.size());
         for(Domain domain : domains) byString.put(domain.toString().toLowerCase(Locale.ENGLISH), domain);
         String response = getSoap().checkAvailability(
             UUID.randomUUID().toString(),
@@ -272,7 +272,7 @@ public class WildWestDomains implements DomainRegistrar {
         XPath xpath = XPathFactory.newInstance().newXPath();
         try {
             NodeList nodeList = (NodeList)xpath.evaluate("/check/domain", document, XPathConstants.NODESET);
-            Map<Domain,Boolean> results = new LinkedHashMap<Domain,Boolean>(nodeList.getLength()*4/3+1);
+            Map<Domain,Boolean> results = AoCollections.newLinkedHashMap(nodeList.getLength());
             for(int c=0; c<nodeList.getLength(); c++) {
                 Node node = nodeList.item(c);
                 if(!(node instanceof Element)) throw new IOException("TODO: "+response);
@@ -478,7 +478,7 @@ public class WildWestDomains implements DomainRegistrar {
         try {
             if(!"1004".equals(xpath.evaluate("/response/result/@code", document))) throw new IOException("TODO: "+response);
             NodeList nodeList = (NodeList)xpath.evaluate("/response/resdata/REPORT/ITEM", document, XPathConstants.NODESET);
-            Map<String,List<String>> results = new LinkedHashMap<String,List<String>>(nodeList.getLength()*4/3+1);
+            Map<String,List<String>> results = AoCollections.newLinkedHashMap(nodeList.getLength());
             for(int c=0; c<nodeList.getLength(); c++) {
                 Node node = nodeList.item(c);
                 if(!(node instanceof Element)) throw new IOException("TODO: "+response);
