@@ -35,7 +35,7 @@ public final class ApplicationResources extends EditableResourceBundle {
         super(
             Locale.ROOT,
             bundleSet,
-            new File(System.getProperty("user.home")+"/maven2/ao/ao-domains/src/com/aoindustries/domains/ApplicationResources.properties")
+            new File(System.getProperty("user.home")+"/maven2/ao/ao-domains/src/main/resources/com/aoindustries/domains/ApplicationResources.properties")
         );
     }
 
