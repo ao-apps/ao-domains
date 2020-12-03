@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009-2011, 2020 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -13,9 +13,6 @@ import java.util.Arrays;
 import java.util.Locale;
 
 /**
- * Provides a simplified interface for obtaining localized values from the ApplicationResources.properties files.
- * Is also an editable resource bundle.
- *
  * @author  AO Industries, Inc.
  */
 public final class ApplicationResources extends EditableResourceBundle {
@@ -28,15 +25,12 @@ public final class ApplicationResources extends EditableResourceBundle {
         )
     );
 
-    /**
-     * Do not use directly.
-     */
+	static File getSourceFile(String filename) {
+		return new File(System.getProperty("user.home") + "/maven2/ao/ao-domains/src/main/resources/com/aoindustries/domains", filename);
+	}
+
     public ApplicationResources() {
-        super(
-            Locale.ROOT,
-            bundleSet,
-            new File(System.getProperty("user.home")+"/maven2/ao/ao-domains/src/main/resources/com/aoindustries/domains/ApplicationResources.properties")
-        );
+		super(Locale.ROOT, bundleSet, getSourceFile("ApplicationResources.properties"));
     }
 
     static final ApplicationResourcesAccessor accessor = ApplicationResourcesAccessor.getInstance(bundleSet.getBaseName());
