@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2011, 2020 by AO Industries, Inc.,
+ * Copyright 2009-2011, 2020, 2021 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -256,8 +256,8 @@ public class WildWestDomains implements DomainRegistrar {
     }
 
     @Override
-    public Map<Domain,Boolean> checkAvailability(Set<Domain> domains) throws IOException {
-        Map<String,Domain> byString = AoCollections.newLinkedHashMap(domains.size());
+    public Map<Domain, Boolean> checkAvailability(Set<Domain> domains) throws IOException {
+        Map<String, Domain> byString = AoCollections.newLinkedHashMap(domains.size());
         for(Domain domain : domains) byString.put(domain.toString().toLowerCase(Locale.ENGLISH), domain);
         String response = getSoap().checkAvailability(
             UUID.randomUUID().toString(),
@@ -272,7 +272,7 @@ public class WildWestDomains implements DomainRegistrar {
         XPath xpath = XPathFactory.newInstance().newXPath();
         try {
             NodeList nodeList = (NodeList)xpath.evaluate("/check/domain", document, XPathConstants.NODESET);
-            Map<Domain,Boolean> results = AoCollections.newLinkedHashMap(nodeList.getLength());
+            Map<Domain, Boolean> results = AoCollections.newLinkedHashMap(nodeList.getLength());
             for(int c=0; c<nodeList.getLength(); c++) {
                 Node node = nodeList.item(c);
                 if(!(node instanceof Element)) throw new IOException("TODO: "+response);
@@ -466,7 +466,7 @@ public class WildWestDomains implements DomainRegistrar {
         if(!"scripting status reset".equals(response)) throw new IOException("TODO: "+response);
     }
 
-    public Map<String,List<String>> poll() throws IOException {
+    public Map<String, List<String>> poll() throws IOException {
         String response = getSoap().poll(
             UUID.randomUUID().toString(),
             new Credential(account, this.password),
@@ -478,7 +478,7 @@ public class WildWestDomains implements DomainRegistrar {
         try {
             if(!"1004".equals(xpath.evaluate("/response/result/@code", document))) throw new IOException("TODO: "+response);
             NodeList nodeList = (NodeList)xpath.evaluate("/response/resdata/REPORT/ITEM", document, XPathConstants.NODESET);
-            Map<String,List<String>> results = AoCollections.newLinkedHashMap(nodeList.getLength());
+            Map<String, List<String>> results = AoCollections.newLinkedHashMap(nodeList.getLength());
             for(int c=0; c<nodeList.getLength(); c++) {
                 Node node = nodeList.item(c);
                 if(!(node instanceof Element)) throw new IOException("TODO: "+response);
@@ -692,7 +692,7 @@ public class WildWestDomains implements DomainRegistrar {
         // availability
         Domain exampleUs = new Domain("example", Tld.US);
         Domain exampleBiz = new Domain("example", Tld.BIZ);
-        Map<Domain,Boolean> availability = checkAvailability(new LinkedHashSet<Domain>(Arrays.asList(new Domain[] {exampleUs, exampleBiz})));
+        Map<Domain, Boolean> availability = checkAvailability(new LinkedHashSet<Domain>(Arrays.asList(new Domain[] {exampleUs, exampleBiz})));
         if(!Boolean.TRUE.equals(availability.get(exampleUs))) throw new IOException("TODO: example.us is not available");
         if(!Boolean.TRUE.equals(availability.get(exampleBiz))) throw new IOException("TODO: example.biz is not available");
         // order domains
@@ -714,18 +714,18 @@ public class WildWestDomains implements DomainRegistrar {
             null
         );
         // privacy purchase
-        Map<String,List<String>> poll1Results = poll();
+        Map<String, List<String>> poll1Results = poll();
         String usResourceid = poll1Results.get(orderDomainsResult.getOrderid()).get(0);
         String bizResourceid = poll1Results.get(orderDomainsResult.getOrderid()).get(1);
         OrderDomainPrivacyResult orderDomainPrivacyResult = orderDomainPrivacy(orderDomainsResult.getUser(), bizResourceid, "defgh", "info@example.biz");
         // availability check
-        Map<Domain,Boolean> availability2 = checkAvailability(new LinkedHashSet<Domain>(Arrays.asList(new Domain[] {exampleUs, exampleBiz})));
+        Map<Domain, Boolean> availability2 = checkAvailability(new LinkedHashSet<Domain>(Arrays.asList(new Domain[] {exampleUs, exampleBiz})));
         if(!Boolean.FALSE.equals(availability2.get(exampleUs))) throw new IOException("TODO: example.us is available");
         if(!Boolean.FALSE.equals(availability2.get(exampleBiz))) throw new IOException("TODO: example.biz is available");
         // information query
         info(bizResourceid);
         // renewal
-        Map<String,List<String>> poll2Results = poll();
+        Map<String, List<String>> poll2Results = poll();
         String bizPdResourceid = poll2Results.get(orderDomainPrivacyResult.getOrderid()).get(0);
         String renewalOrderid = orderPrivateDomainRenewals(orderDomainsResult.getUser(), orderDomainPrivacyResult.getDbpUser(), "defgh", usResourceid, bizResourceid, bizPdResourceid);
         // transfer

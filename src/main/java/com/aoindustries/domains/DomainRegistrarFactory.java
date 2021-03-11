@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2012, 2020 by AO Industries, Inc.,
+ * Copyright 2009-2012, 2020, 2021 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -73,7 +73,7 @@ public class DomainRegistrarFactory {
         }
     }
 
-    final private static Map<ProviderKey,DomainRegistrar> providers = new HashMap<ProviderKey,DomainRegistrar>();
+    final private static Map<ProviderKey, DomainRegistrar> providers = new HashMap<>();
 
     /**
      * Gets the provider for the given parameters.<br>

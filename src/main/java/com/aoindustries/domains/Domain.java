@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009-2011, 2021 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -65,20 +65,20 @@ public class Domain implements Comparable<Domain>, Validateable {
         return sld.compareTo(other.sld);
     }
 
-    private static void addError(Map<String,List<String>> errors, String fieldName, String key) {
+    private static void addError(Map<String, List<String>> errors, String fieldName, String key) {
         List<String> list = errors.get(fieldName);
         if(list==null) errors.put(fieldName, list = new ArrayList<String>());
         list.add(ApplicationResources.accessor.getMessage(key));
     }
 
-    private static void addError(Map<String,List<String>> errors, String fieldName, String key, Object... args) {
+    private static void addError(Map<String, List<String>> errors, String fieldName, String key, Object... args) {
         List<String> list = errors.get(fieldName);
         if(list==null) errors.put(fieldName, list = new ArrayList<String>());
         list.add(ApplicationResources.accessor.getMessage(key, args));
     }
 
     public Map<String, List<String>> validate() {
-        Map<String,List<String>> errors = new HashMap<String,List<String>>();
+        Map<String, List<String>> errors = new HashMap<String, List<String>>();
         if(sld.length()<SLD_MIN_LENGTH) addError(errors, "sld", "Domain.validate.sld.tooShort", SLD_MIN_LENGTH);
         if(sld.length()>SLD_MAX_LENGTH) addError(errors, "sld", "Domain.validate.sld.tooLong", SLD_MAX_LENGTH);
         if(!SLD_PATTERN.matcher(sld).matches()) addError(errors, "sld", "Domain.validate.sld.invalid");

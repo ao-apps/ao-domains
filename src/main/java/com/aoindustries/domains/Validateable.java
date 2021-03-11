@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009-2011, 2021 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -16,5 +16,5 @@ public interface Validateable {
     /**
      * Validates the properties of this object.  Returns an empty map when there are no problems.
      */
-    Map<String,List<String>> validate();
+    Map<String, List<String>> validate();
 }

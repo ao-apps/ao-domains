@@ -1,7 +1,7 @@
 package com.aoindustries.domains;
 
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009-2011, 2021 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -36,7 +36,7 @@ public interface DomainRegistrar {
     /**
      * Checks the availability of the provided domains.
      */
-    Map<Domain,Boolean> checkAvailability(Set<Domain> domains) throws IOException;
+    Map<Domain, Boolean> checkAvailability(Set<Domain> domains) throws IOException;
 
     /**
      * Gets the cost per year to register a domain in the given top level domain.
