@@ -1,9 +1,10 @@
-package com.aoindustries.domains.wwd;
 /*
- * Copyright 2009-2011 by AO Industries, Inc.,
+ * Copyright 2009-2011, 2021 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.domains.wwd;
+
 import com.aoindustries.util.PropertiesUtils;
 import java.io.IOException;
 import java.util.Properties;
@@ -17,9 +18,9 @@ import junit.framework.TestSuite;
  * @author  AO Industries, Inc.
  */
 public class CertificationTest extends TestCase {
-    
+
     private static Properties config;
-    synchronized private static String getConfig(String name) throws IOException {
+    private static synchronized String getConfig(String name) throws IOException {
         if(config==null) config = PropertiesUtils.loadFromResource(CertificationTest.class, "CertificationTest.properties");
         return config.getProperty(name);
     }

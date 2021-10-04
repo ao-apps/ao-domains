@@ -16,9 +16,9 @@ import junit.framework.TestCase;
  *
  * @author  AO Industries, Inc.
  */
-abstract public class DomainRegistrarParent extends TestCase {
+public abstract class DomainRegistrarParent extends TestCase {
 
-    abstract public DomainRegistrar getDomainRegistrar() throws Exception;
+    public abstract DomainRegistrar getDomainRegistrar() throws Exception;
 
     private DomainRegistrar registrar;
 
