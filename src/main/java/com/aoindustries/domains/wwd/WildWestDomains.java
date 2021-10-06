@@ -40,11 +40,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Logger;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.rpc.ServiceException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
@@ -99,7 +101,17 @@ public class WildWestDomains implements DomainRegistrar {
     private static String transform(Document document) throws IOException {
         try {
             StringWriter cout = new StringWriter();
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+			TransformerFactory factory = TransformerFactory.newInstance();
+			try {
+				factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+			} catch(TransformerConfigurationException e) {
+				throw new AssertionError("All implementations are required to support the javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING feature.", e);
+			}
+			// See https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.md#java
+			// See https://rules.sonarsource.com/java/RSPEC-2755
+			factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+			factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            Transformer transformer = factory.newTransformer();
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
             transformer.transform(new DOMSource(document), new StreamResult(cout));
             return cout.toString();
@@ -115,9 +127,18 @@ public class WildWestDomains implements DomainRegistrar {
      */
     private static Document newDocument() throws IOException {
         try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            factory.setNamespaceAware(true);
-            return factory.newDocumentBuilder().newDocument();
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			try {
+				dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+			} catch(ParserConfigurationException e) {
+				throw new AssertionError("All implementations are required to support the javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING feature.", e);
+			}
+			// See https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.md#java
+			// See https://rules.sonarsource.com/java/RSPEC-2755
+			dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+			dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            dbf.setNamespaceAware(true);
+            return dbf.newDocumentBuilder().newDocument();
         } catch(ParserConfigurationException err) {
             IOException ioErr = new IOException();
             ioErr.initCause(err);
@@ -131,7 +152,17 @@ public class WildWestDomains implements DomainRegistrar {
     private static Document transform(String xml) throws IOException {
         try {
             Document document = newDocument();
-            TransformerFactory.newInstance().newTransformer().transform(new StreamSource(new StringReader(xml)), new DOMResult(document));
+			TransformerFactory factory = TransformerFactory.newInstance();
+			try {
+				factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+			} catch(TransformerConfigurationException e) {
+				throw new AssertionError("All implementations are required to support the javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING feature.", e);
+			}
+			// See https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.md#java
+			// See https://rules.sonarsource.com/java/RSPEC-2755
+			factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+			factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            factory.newTransformer().transform(new StreamSource(new StringReader(xml)), new DOMResult(document));
             return document;
         } catch(TransformerException err) {
             IOException ioErr = new IOException();
@@ -236,7 +267,7 @@ public class WildWestDomains implements DomainRegistrar {
     public String getPortAddress() {
         return portAddress;
     }
-    
+
     public String getAccount() {
         return account;
     }
