@@ -22,7 +22,7 @@ public abstract class DomainRegistrarParent extends TestCase {
 
     private DomainRegistrar registrar;
 
-    public DomainRegistrarParent(String testName) {
+    protected DomainRegistrarParent(String testName) {
         super(testName);
     }
 
