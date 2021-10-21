@@ -19,13 +19,13 @@ import java.util.logging.Logger;
  */
 public final class ApplicationResources extends EditableResourceBundle {
 
-    static final EditableResourceBundleSet bundleSet = new EditableResourceBundleSet(
-        ApplicationResources.class.getName(),
-        Arrays.asList(
-            Locale.ROOT,
-            Locale.JAPANESE
-        )
-    );
+	static final EditableResourceBundleSet bundleSet = new EditableResourceBundleSet(
+		ApplicationResources.class.getName(),
+		Arrays.asList(
+			Locale.ROOT,
+			Locale.JAPANESE
+		)
+	);
 
 	static File getSourceFile(String filename) {
 		try {
@@ -40,9 +40,9 @@ public final class ApplicationResources extends EditableResourceBundle {
 		}
 	}
 
-    public ApplicationResources() {
+	public ApplicationResources() {
 		super(Locale.ROOT, bundleSet, getSourceFile("ApplicationResources.properties"));
-    }
+	}
 
-    static final ApplicationResourcesAccessor accessor = ApplicationResourcesAccessor.getInstance(bundleSet.getBaseName());
+	static final ApplicationResourcesAccessor accessor = ApplicationResourcesAccessor.getInstance(bundleSet.getBaseName());
 }

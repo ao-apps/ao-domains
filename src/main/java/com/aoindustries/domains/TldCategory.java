@@ -9,13 +9,13 @@ package com.aoindustries.domains;
  * @author  AO Industries, Inc.
  */
 public enum TldCategory {
-    GENERAL,
-    AMERICAS,
-    EUROPE,
-    ASIA;
+	GENERAL,
+	AMERICAS,
+	EUROPE,
+	ASIA;
 
-    @Override
-    public String toString() {
-        return ApplicationResources.accessor.getMessage("TldCategory."+name()+".toString");
-    }
+	@Override
+	public String toString() {
+		return ApplicationResources.accessor.getMessage("TldCategory."+name()+".toString");
+	}
 }

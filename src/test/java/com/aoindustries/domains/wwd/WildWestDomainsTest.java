@@ -18,22 +18,22 @@ import junit.framework.TestSuite;
  */
 public class WildWestDomainsTest extends DomainRegistrarParent {
 
-    private static Properties config;
-    private static synchronized String getConfig(String name) throws IOException {
-        if(config==null) config = PropertiesUtils.loadFromResource(WildWestDomainsTest.class, "WildWestDomainsTest.properties");
-        return config.getProperty(name);
-    }
+	private static Properties config;
+	private static synchronized String getConfig(String name) throws IOException {
+		if(config==null) config = PropertiesUtils.loadFromResource(WildWestDomainsTest.class, "WildWestDomainsTest.properties");
+		return config.getProperty(name);
+	}
 
-    public WildWestDomainsTest(String testName) {
-        super(testName);
-    }
+	public WildWestDomainsTest(String testName) {
+		super(testName);
+	}
 
-    public DomainRegistrar getDomainRegistrar() throws Exception {
-        return new WildWestDomains("WildWestDomainsTest", WildWestDomains.PRODUCTION_PORT_ADDRESS, getConfig("account"), getConfig("password"));
-    }
+	public DomainRegistrar getDomainRegistrar() throws Exception {
+		return new WildWestDomains("WildWestDomainsTest", WildWestDomains.PRODUCTION_PORT_ADDRESS, getConfig("account"), getConfig("password"));
+	}
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(WildWestDomainsTest.class);
-        return suite;
-    }
+	public static Test suite() {
+		TestSuite suite = new TestSuite(WildWestDomainsTest.class);
+		return suite;
+	}
 }

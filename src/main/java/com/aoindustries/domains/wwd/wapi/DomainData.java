@@ -8,182 +8,182 @@
 package com.aoindustries.domains.wwd.wapi;
 
 public class DomainData  implements java.io.Serializable {
-    private java.lang.String sld;
+	private java.lang.String sld;
 
-    private java.lang.String tld;
+	private java.lang.String tld;
 
-    private int period;
+	private int period;
 
-    public DomainData() {
-    }
+	public DomainData() {
+	}
 
-    public DomainData(
-           java.lang.String sld,
-           java.lang.String tld,
-           int period) {
-           this.sld = sld;
-           this.tld = tld;
-           this.period = period;
-    }
-
-
-    /**
-     * Gets the sld value for this DomainData.
-     * 
-     * @return sld
-     */
-    public java.lang.String getSld() {
-        return sld;
-    }
+	public DomainData(
+		   java.lang.String sld,
+		   java.lang.String tld,
+		   int period) {
+		   this.sld = sld;
+		   this.tld = tld;
+		   this.period = period;
+	}
 
 
-    /**
-     * Sets the sld value for this DomainData.
-     * 
-     * @param sld
-     */
-    public void setSld(java.lang.String sld) {
-        this.sld = sld;
-    }
+	/**
+	 * Gets the sld value for this DomainData.
+	 *
+	 * @return sld
+	 */
+	public java.lang.String getSld() {
+		return sld;
+	}
 
 
-    /**
-     * Gets the tld value for this DomainData.
-     * 
-     * @return tld
-     */
-    public java.lang.String getTld() {
-        return tld;
-    }
+	/**
+	 * Sets the sld value for this DomainData.
+	 *
+	 * @param sld
+	 */
+	public void setSld(java.lang.String sld) {
+		this.sld = sld;
+	}
 
 
-    /**
-     * Sets the tld value for this DomainData.
-     * 
-     * @param tld
-     */
-    public void setTld(java.lang.String tld) {
-        this.tld = tld;
-    }
+	/**
+	 * Gets the tld value for this DomainData.
+	 *
+	 * @return tld
+	 */
+	public java.lang.String getTld() {
+		return tld;
+	}
 
 
-    /**
-     * Gets the period value for this DomainData.
-     * 
-     * @return period
-     */
-    public int getPeriod() {
-        return period;
-    }
+	/**
+	 * Sets the tld value for this DomainData.
+	 *
+	 * @param tld
+	 */
+	public void setTld(java.lang.String tld) {
+		this.tld = tld;
+	}
 
 
-    /**
-     * Sets the period value for this DomainData.
-     * 
-     * @param period
-     */
-    public void setPeriod(int period) {
-        this.period = period;
-    }
+	/**
+	 * Gets the period value for this DomainData.
+	 *
+	 * @return period
+	 */
+	public int getPeriod() {
+		return period;
+	}
 
-    private java.lang.Object __equalsCalc = null;
-    public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof DomainData)) return false;
-        DomainData other = (DomainData) obj;
-        if (obj == null) return false;
-        if (this == obj) return true;
-        if (__equalsCalc != null) {
-            return (__equalsCalc == obj);
-        }
-        __equalsCalc = obj;
-        boolean _equals;
-        _equals = true && 
-            ((this.sld==null && other.getSld()==null) || 
-             (this.sld!=null &&
-              this.sld.equals(other.getSld()))) &&
-            ((this.tld==null && other.getTld()==null) || 
-             (this.tld!=null &&
-              this.tld.equals(other.getTld()))) &&
-            this.period == other.getPeriod();
-        __equalsCalc = null;
-        return _equals;
-    }
 
-    private boolean __hashCodeCalc = false;
-    public synchronized int hashCode() {
-        if (__hashCodeCalc) {
-            return 0;
-        }
-        __hashCodeCalc = true;
-        int _hashCode = 1;
-        if (getSld() != null) {
-            _hashCode += getSld().hashCode();
-        }
-        if (getTld() != null) {
-            _hashCode += getTld().hashCode();
-        }
-        _hashCode += getPeriod();
-        __hashCodeCalc = false;
-        return _hashCode;
-    }
+	/**
+	 * Sets the period value for this DomainData.
+	 *
+	 * @param period
+	 */
+	public void setPeriod(int period) {
+		this.period = period;
+	}
 
-    // Type metadata
-    private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(DomainData.class, true);
+	private java.lang.Object __equalsCalc = null;
+	public synchronized boolean equals(java.lang.Object obj) {
+		if (!(obj instanceof DomainData)) return false;
+		DomainData other = (DomainData) obj;
+		if (obj == null) return false;
+		if (this == obj) return true;
+		if (__equalsCalc != null) {
+			return (__equalsCalc == obj);
+		}
+		__equalsCalc = obj;
+		boolean _equals;
+		_equals = true &&
+			((this.sld==null && other.getSld()==null) ||
+			 (this.sld!=null &&
+			  this.sld.equals(other.getSld()))) &&
+			((this.tld==null && other.getTld()==null) ||
+			 (this.tld!=null &&
+			  this.tld.equals(other.getTld()))) &&
+			this.period == other.getPeriod();
+		__equalsCalc = null;
+		return _equals;
+	}
 
-    static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://wildwestdomains.com/webservices/", "DomainData"));
-        org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("sld");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://wildwestdomains.com/webservices/", "sld"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
-        elemField.setMinOccurs(0);
-        elemField.setNillable(false);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("tld");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://wildwestdomains.com/webservices/", "tld"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
-        elemField.setMinOccurs(0);
-        elemField.setNillable(false);
-        typeDesc.addFieldDesc(elemField);
-        elemField = new org.apache.axis.description.ElementDesc();
-        elemField.setFieldName("period");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://wildwestdomains.com/webservices/", "period"));
-        elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
-        elemField.setNillable(false);
-        typeDesc.addFieldDesc(elemField);
-    }
+	private boolean __hashCodeCalc = false;
+	public synchronized int hashCode() {
+		if (__hashCodeCalc) {
+			return 0;
+		}
+		__hashCodeCalc = true;
+		int _hashCode = 1;
+		if (getSld() != null) {
+			_hashCode += getSld().hashCode();
+		}
+		if (getTld() != null) {
+			_hashCode += getTld().hashCode();
+		}
+		_hashCode += getPeriod();
+		__hashCodeCalc = false;
+		return _hashCode;
+	}
 
-    /**
-     * Return type metadata object
-     */
-    public static org.apache.axis.description.TypeDesc getTypeDesc() {
-        return typeDesc;
-    }
+	// Type metadata
+	private static org.apache.axis.description.TypeDesc typeDesc =
+		new org.apache.axis.description.TypeDesc(DomainData.class, true);
 
-    /**
-     * Get Custom Serializer
-     */
-    public static org.apache.axis.encoding.Serializer getSerializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
-           javax.xml.namespace.QName _xmlType) {
-        return 
-          new  org.apache.axis.encoding.ser.BeanSerializer(
-            _javaType, _xmlType, typeDesc);
-    }
+	static {
+		typeDesc.setXmlType(new javax.xml.namespace.QName("http://wildwestdomains.com/webservices/", "DomainData"));
+		org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
+		elemField.setFieldName("sld");
+		elemField.setXmlName(new javax.xml.namespace.QName("http://wildwestdomains.com/webservices/", "sld"));
+		elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+		elemField.setMinOccurs(0);
+		elemField.setNillable(false);
+		typeDesc.addFieldDesc(elemField);
+		elemField = new org.apache.axis.description.ElementDesc();
+		elemField.setFieldName("tld");
+		elemField.setXmlName(new javax.xml.namespace.QName("http://wildwestdomains.com/webservices/", "tld"));
+		elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "string"));
+		elemField.setMinOccurs(0);
+		elemField.setNillable(false);
+		typeDesc.addFieldDesc(elemField);
+		elemField = new org.apache.axis.description.ElementDesc();
+		elemField.setFieldName("period");
+		elemField.setXmlName(new javax.xml.namespace.QName("http://wildwestdomains.com/webservices/", "period"));
+		elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"));
+		elemField.setNillable(false);
+		typeDesc.addFieldDesc(elemField);
+	}
 
-    /**
-     * Get Custom Deserializer
-     */
-    public static org.apache.axis.encoding.Deserializer getDeserializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
-           javax.xml.namespace.QName _xmlType) {
-        return 
-          new  org.apache.axis.encoding.ser.BeanDeserializer(
-            _javaType, _xmlType, typeDesc);
-    }
+	/**
+	 * Return type metadata object
+	 */
+	public static org.apache.axis.description.TypeDesc getTypeDesc() {
+		return typeDesc;
+	}
+
+	/**
+	 * Get Custom Serializer
+	 */
+	public static org.apache.axis.encoding.Serializer getSerializer(
+		   java.lang.String mechType,
+		   java.lang.Class _javaType,
+		   javax.xml.namespace.QName _xmlType) {
+		return
+		  new  org.apache.axis.encoding.ser.BeanSerializer(
+			_javaType, _xmlType, typeDesc);
+	}
+
+	/**
+	 * Get Custom Deserializer
+	 */
+	public static org.apache.axis.encoding.Deserializer getDeserializer(
+		   java.lang.String mechType,
+		   java.lang.Class _javaType,
+		   javax.xml.namespace.QName _xmlType) {
+		return
+		  new  org.apache.axis.encoding.ser.BeanDeserializer(
+			_javaType, _xmlType, typeDesc);
+	}
 
 }

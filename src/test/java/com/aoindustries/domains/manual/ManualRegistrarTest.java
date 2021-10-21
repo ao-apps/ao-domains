@@ -19,22 +19,22 @@ import junit.framework.TestSuite;
  */
 public class ManualRegistrarTest extends DomainRegistrarParent {
 
-    private static Properties config;
-    private static synchronized String getConfig(String name) throws IOException {
-        if(config==null) config = PropertiesUtils.loadFromResource(ManualRegistrarTest.class, "ManualRegistrarTest.properties");
-        return config.getProperty(name);
-    }
+	private static Properties config;
+	private static synchronized String getConfig(String name) throws IOException {
+		if(config==null) config = PropertiesUtils.loadFromResource(ManualRegistrarTest.class, "ManualRegistrarTest.properties");
+		return config.getProperty(name);
+	}
 
-    public ManualRegistrarTest(String testName) {
-        super(testName);
-    }
+	public ManualRegistrarTest(String testName) {
+		super(testName);
+	}
 
-    public DomainRegistrar getDomainRegistrar() throws Exception {
-        return new ManualRegistrar("ManualRegistrarTest", WildWestDomains.PRODUCTION_PORT_ADDRESS, getConfig("account"), getConfig("password"));
-    }
+	public DomainRegistrar getDomainRegistrar() throws Exception {
+		return new ManualRegistrar("ManualRegistrarTest", WildWestDomains.PRODUCTION_PORT_ADDRESS, getConfig("account"), getConfig("password"));
+	}
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ManualRegistrarTest.class);
-        return suite;
-    }
+	public static Test suite() {
+		TestSuite suite = new TestSuite(ManualRegistrarTest.class);
+		return suite;
+	}
 }

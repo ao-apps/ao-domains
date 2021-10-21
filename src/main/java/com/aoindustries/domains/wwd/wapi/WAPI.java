@@ -8,9 +8,9 @@
 package com.aoindustries.domains.wwd.wapi;
 
 public interface WAPI extends javax.xml.rpc.Service {
-    public java.lang.String getWAPISoapAddress();
+	public java.lang.String getWAPISoapAddress();
 
-    public com.aoindustries.domains.wwd.wapi.WAPISoap_PortType getWAPISoap() throws javax.xml.rpc.ServiceException;
+	public com.aoindustries.domains.wwd.wapi.WAPISoap_PortType getWAPISoap() throws javax.xml.rpc.ServiceException;
 
-    public com.aoindustries.domains.wwd.wapi.WAPISoap_PortType getWAPISoap(java.net.URL portAddress) throws javax.xml.rpc.ServiceException;
+	public com.aoindustries.domains.wwd.wapi.WAPISoap_PortType getWAPISoap(java.net.URL portAddress) throws javax.xml.rpc.ServiceException;
 }
