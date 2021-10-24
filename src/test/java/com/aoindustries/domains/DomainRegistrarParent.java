@@ -37,11 +37,11 @@ public abstract class DomainRegistrarParent extends TestCase {
 	}
 
 	public void testGetRegisterCost() throws Exception {
-		Currency USD = Currency.getInstance("USD");
+		Currency usd = Currency.getInstance("USD");
 		for(Tld tld : registrar.getRegisterTlds()) {
 			System.out.println("tld="+tld);
 			for(int numYears=tld.getMinRegistrationYears(), maxYears=tld.getMaxRegistrationYears(); numYears<=maxYears; numYears++) {
-				System.out.println("    "+numYears+": "+registrar.getRegisterCost(USD, tld, numYears));
+				System.out.println("    " + numYears + ": " + registrar.getRegisterCost(usd, tld, numYears));
 			}
 		}
 	}
