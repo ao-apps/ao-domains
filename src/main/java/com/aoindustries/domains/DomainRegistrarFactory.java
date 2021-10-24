@@ -58,10 +58,9 @@ public class DomainRegistrarFactory {
 		}
 
 		@Override
-		public boolean equals(Object O) {
-			if(O==null) return false;
-			if(!(O instanceof ProviderKey)) return false;
-			ProviderKey other = (ProviderKey)O;
+		public boolean equals(Object obj) {
+			if(!(obj instanceof ProviderKey)) return false;
+			ProviderKey other = (ProviderKey)obj;
 			return
 				providerId.equals(other.providerId)
 				&& className.equals(other.className)

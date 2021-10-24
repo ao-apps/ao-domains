@@ -43,7 +43,6 @@ public class Domain implements Comparable<Domain>, Validateable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj==null) return false;
 		if(!(obj instanceof Domain)) return false;
 		Domain other = (Domain)obj;
 		return sld.equals(other.sld) && tld==other.tld;
