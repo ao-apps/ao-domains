@@ -271,18 +271,19 @@ public class ContactInfo implements Validateable {
 
 	private static void addError(Map<String, List<String>> errors, String fieldName, String key) {
 		List<String> list = errors.get(fieldName);
-		if(list==null) errors.put(fieldName, list = new ArrayList<String>());
+		if(list == null) errors.put(fieldName, list = new ArrayList<>());
 		list.add(ApplicationResources.accessor.getMessage(key));
 	}
 
 	private static void addError(Map<String, List<String>> errors, String fieldName, String key, Object... args) {
 		List<String> list = errors.get(fieldName);
-		if(list==null) errors.put(fieldName, list = new ArrayList<String>());
+		if(list == null) errors.put(fieldName, list = new ArrayList<>());
 		list.add(ApplicationResources.accessor.getMessage(key, args));
 	}
 
+	@Override
 	public Map<String, List<String>> validate() {
-		Map<String, List<String>> errors = new HashMap<String, List<String>>();
+		Map<String, List<String>> errors = new HashMap<>();
 		if(firstName!=null) {
 			if(firstName.length()>FIRST_NAME_MAX_LENGTH) addError(errors, "firstName", "ContactInfo.validate.firstName.tooLong", FIRST_NAME_MAX_LENGTH);
 			if(!FIRST_NAME_PATTERN.matcher(firstName).matches()) addError(errors, "firstName", "ContactInfo.validate.firstName.invalid");

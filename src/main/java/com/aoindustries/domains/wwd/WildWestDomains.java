@@ -116,9 +116,7 @@ public class WildWestDomains implements DomainRegistrar {
 			transformer.transform(new DOMSource(document), new StreamResult(cout));
 			return cout.toString();
 		} catch(TransformerException err) {
-			IOException ioErr = new IOException();
-			ioErr.initCause(err);
-			throw ioErr;
+			throw new IOException(err);
 		}
 	}
 
@@ -140,9 +138,7 @@ public class WildWestDomains implements DomainRegistrar {
 			dbf.setNamespaceAware(true);
 			return dbf.newDocumentBuilder().newDocument();
 		} catch(ParserConfigurationException err) {
-			IOException ioErr = new IOException();
-			ioErr.initCause(err);
-			throw ioErr;
+			throw new IOException(err);
 		}
 	}
 
@@ -165,9 +161,7 @@ public class WildWestDomains implements DomainRegistrar {
 			factory.newTransformer().transform(new StreamSource(new StringReader(xml)), new DOMResult(document));
 			return document;
 		} catch(TransformerException err) {
-			IOException ioErr = new IOException();
-			ioErr.initCause(err);
-			throw ioErr;
+			throw new IOException(err);
 		}
 	}
 
@@ -280,9 +274,7 @@ public class WildWestDomains implements DomainRegistrar {
 		try {
 			return new WAPILocator().getWAPISoap(new URL(portAddress));
 		} catch(ServiceException err) {
-			IOException ioErr = new IOException();
-			ioErr.initCause(err);
-			throw ioErr;
+			throw new IOException(err);
 		}
 	}
 
@@ -314,9 +306,7 @@ public class WildWestDomains implements DomainRegistrar {
 			for(Domain domain : domains) if(!results.containsKey(domain)) throw new IOException("TODO: Domain not in results: "+domain);
 			return Collections.unmodifiableMap(results);
 		} catch(XPathExpressionException err) {
-			IOException ioErr = new IOException();
-			ioErr.initCause(err);
-			throw ioErr;
+			throw new IOException(err);
 		}
 	}
 
@@ -469,9 +459,7 @@ public class WildWestDomains implements DomainRegistrar {
 				xpath.evaluate("/response/resdata/orderid", document)
 			);
 		} catch(XPathExpressionException err) {
-			IOException ioErr = new IOException();
-			ioErr.initCause(err);
-			throw ioErr;
+			throw new IOException(err);
 		}
 	}
 
@@ -517,14 +505,12 @@ public class WildWestDomains implements DomainRegistrar {
 				String orderid = elem.getAttribute("orderid");
 				String resourceid = elem.getAttribute("resourceid");
 				List<String> resources = results.get(orderid);
-				if(resources==null) results.put(orderid, resources = new ArrayList<String>());
+				if(resources == null) results.put(orderid, resources = new ArrayList<>());
 				resources.add(resourceid);
 			}
 			return results;
 		} catch(XPathExpressionException err) {
-			IOException ioErr = new IOException();
-			ioErr.initCause(err);
-			throw ioErr;
+			throw new IOException(err);
 		}
 	}
 
@@ -577,9 +563,7 @@ public class WildWestDomains implements DomainRegistrar {
 				xpath.evaluate("/response/resdata/orderid", document)
 			);
 		} catch(XPathExpressionException err) {
-			IOException ioErr = new IOException();
-			ioErr.initCause(err);
-			throw ioErr;
+			throw new IOException(err);
 		}
 	}
 
@@ -649,9 +633,7 @@ public class WildWestDomains implements DomainRegistrar {
 			if(!"1000".equals(xpath.evaluate("/response/result/@code", document))) throw new IOException("TODO: "+response);
 			return xpath.evaluate("/response/resdata/orderid", document);
 		} catch(XPathExpressionException err) {
-			IOException ioErr = new IOException();
-			ioErr.initCause(err);
-			throw ioErr;
+			throw new IOException(err);
 		}
 	}
 
@@ -711,9 +693,7 @@ public class WildWestDomains implements DomainRegistrar {
 			if(!"1000".equals(xpath.evaluate("/response/result/@code", document))) throw new IOException("TODO: "+response);
 			return xpath.evaluate("/response/resdata/orderid", document);
 		} catch(XPathExpressionException err) {
-			IOException ioErr = new IOException();
-			ioErr.initCause(err);
-			throw ioErr;
+			throw new IOException(err);
 		}
 	}
 
@@ -723,7 +703,7 @@ public class WildWestDomains implements DomainRegistrar {
 		// availability
 		Domain exampleUs = new Domain("example", Tld.US);
 		Domain exampleBiz = new Domain("example", Tld.BIZ);
-		Map<Domain, Boolean> availability = checkAvailability(new LinkedHashSet<Domain>(Arrays.asList(new Domain[] {exampleUs, exampleBiz})));
+		Map<Domain, Boolean> availability = checkAvailability(new LinkedHashSet<>(Arrays.asList(new Domain[] {exampleUs, exampleBiz})));
 		if(!Boolean.TRUE.equals(availability.get(exampleUs))) throw new IOException("TODO: example.us is not available");
 		if(!Boolean.TRUE.equals(availability.get(exampleBiz))) throw new IOException("TODO: example.biz is not available");
 		// order domains
@@ -750,7 +730,7 @@ public class WildWestDomains implements DomainRegistrar {
 		String bizResourceid = poll1Results.get(orderDomainsResult.getOrderid()).get(1);
 		OrderDomainPrivacyResult orderDomainPrivacyResult = orderDomainPrivacy(orderDomainsResult.getUser(), bizResourceid, "defgh", "info@example.biz");
 		// availability check
-		Map<Domain, Boolean> availability2 = checkAvailability(new LinkedHashSet<Domain>(Arrays.asList(new Domain[] {exampleUs, exampleBiz})));
+		Map<Domain, Boolean> availability2 = checkAvailability(new LinkedHashSet<>(Arrays.asList(new Domain[] {exampleUs, exampleBiz})));
 		if(!Boolean.FALSE.equals(availability2.get(exampleUs))) throw new IOException("TODO: example.us is available");
 		if(!Boolean.FALSE.equals(availability2.get(exampleBiz))) throw new IOException("TODO: example.biz is available");
 		// information query

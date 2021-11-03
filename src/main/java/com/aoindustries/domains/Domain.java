@@ -58,6 +58,7 @@ public class Domain implements Comparable<Domain>, Validateable {
 		return sld+"."+tld;
 	}
 
+	@Override
 	public int compareTo(Domain other) {
 		int diff = tld.compareTo(other.tld);
 		if(diff!=0) return diff;
@@ -66,18 +67,19 @@ public class Domain implements Comparable<Domain>, Validateable {
 
 	private static void addError(Map<String, List<String>> errors, String fieldName, String key) {
 		List<String> list = errors.get(fieldName);
-		if(list==null) errors.put(fieldName, list = new ArrayList<String>());
+		if(list == null) errors.put(fieldName, list = new ArrayList<>());
 		list.add(ApplicationResources.accessor.getMessage(key));
 	}
 
 	private static void addError(Map<String, List<String>> errors, String fieldName, String key, Object... args) {
 		List<String> list = errors.get(fieldName);
-		if(list==null) errors.put(fieldName, list = new ArrayList<String>());
+		if(list == null) errors.put(fieldName, list = new ArrayList<>());
 		list.add(ApplicationResources.accessor.getMessage(key, args));
 	}
 
+	@Override
 	public Map<String, List<String>> validate() {
-		Map<String, List<String>> errors = new HashMap<String, List<String>>();
+		Map<String, List<String>> errors = new HashMap<>();
 		if(sld.length()<SLD_MIN_LENGTH) addError(errors, "sld", "Domain.validate.sld.tooShort", SLD_MIN_LENGTH);
 		if(sld.length()>SLD_MAX_LENGTH) addError(errors, "sld", "Domain.validate.sld.tooLong", SLD_MAX_LENGTH);
 		if(!SLD_PATTERN.matcher(sld).matches()) addError(errors, "sld", "Domain.validate.sld.invalid");

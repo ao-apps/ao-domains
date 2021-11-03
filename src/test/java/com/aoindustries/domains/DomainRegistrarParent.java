@@ -1,9 +1,10 @@
-package com.aoindustries.domains;
 /*
  * Copyright 2009-2011, 2021 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+package com.aoindustries.domains;
+
 import java.util.Currency;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -46,7 +47,7 @@ public abstract class DomainRegistrarParent extends TestCase {
 		}
 	}
 
-	private static final Map<Tld, String> existingSlds = new HashMap<Tld, String>();
+	private static final Map<Tld, String> existingSlds = new HashMap<>();
 	static {
 		existingSlds.put(Tld.COM, "aoindustries");
 		existingSlds.put(Tld.NET, "aointernet");
@@ -120,7 +121,7 @@ public abstract class DomainRegistrarParent extends TestCase {
 			assertNotNull("Please add to existingSlds: "+tld, existingSld);
 			domains.put(tld, new Domain(existingSld, tld));
 		}
-		Map<Domain, Boolean> results = registrar.checkAvailability(new HashSet<Domain>(domains.values()));
+		Map<Domain, Boolean> results = registrar.checkAvailability(new HashSet<>(domains.values()));
 		for(Tld tld : registrar.getRegisterTlds()) {
 			Domain domain = domains.get(tld);
 			Boolean avail = results.get(domain);
@@ -137,7 +138,7 @@ public abstract class DomainRegistrarParent extends TestCase {
 		for(Tld tld : registrar.getRegisterTlds()) {
 			domains.put(tld, new Domain("ao1234test5678", tld));
 		}
-		Map<Domain, Boolean> results = registrar.checkAvailability(new HashSet<Domain>(domains.values()));
+		Map<Domain, Boolean> results = registrar.checkAvailability(new HashSet<>(domains.values()));
 		for(Tld tld : registrar.getRegisterTlds()) {
 			Domain domain = domains.get(tld);
 			Boolean avail = results.get(domain);
