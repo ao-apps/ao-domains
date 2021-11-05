@@ -38,6 +38,7 @@ public class CertificationTest extends TestCase {
 
 	@Override
 	protected void tearDown() throws Exception {
+		// Do nothing
 	}
 
 	public static Test suite() {
