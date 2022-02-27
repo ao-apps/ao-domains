@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2012, 2020, 2021 by AO Industries, Inc.,
+ * Copyright 2009-2012, 2020, 2021, 2022 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -18,7 +18,10 @@ import java.util.Objects;
  *
  * @author  AO Industries, Inc.
  */
-public class DomainRegistrarFactory {
+public final class DomainRegistrarFactory {
+
+	/** Make no instances. */
+	private DomainRegistrarFactory() {throw new AssertionError();}
 
 	private static class ProviderKey {
 
@@ -162,9 +165,5 @@ public class DomainRegistrarFactory {
 			}
 			return provider;
 		}
-	}
-
-	private DomainRegistrarFactory() {
-		// Make no instances
 	}
 }
