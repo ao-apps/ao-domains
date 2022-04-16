@@ -1,8 +1,9 @@
 /*
- * Copyright 2009-2011, 2021 by AO Industries, Inc.,
+ * Copyright 2009-2011, 2021, 2022 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+
 package com.aoindustries.domains.manual;
 
 import com.aoindustries.domains.DomainRegistrar;

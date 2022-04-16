@@ -3,6 +3,7 @@
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+
 package com.aoindustries.domains;
 
 import java.lang.reflect.Constructor;
