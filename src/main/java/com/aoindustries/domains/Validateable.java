@@ -14,8 +14,8 @@ import java.util.Map;
  */
 public interface Validateable {
 
-	/**
-	 * Validates the properties of this object.  Returns an empty map when there are no problems.
-	 */
-	Map<String, List<String>> validate();
+  /**
+   * Validates the properties of this object.  Returns an empty map when there are no problems.
+   */
+  Map<String, List<String>> validate();
 }

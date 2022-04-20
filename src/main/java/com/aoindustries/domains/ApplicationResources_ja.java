@@ -14,11 +14,11 @@ import java.util.Locale;
  */
 public final class ApplicationResources_ja extends EditableResourceBundle {
 
-	public ApplicationResources_ja() {
-		super(
-			Locale.JAPANESE,
-			ApplicationResources.bundleSet,
-			ApplicationResources.getSourceFile("ApplicationResources_ja.properties")
-		);
-	}
+  public ApplicationResources_ja() {
+    super(
+      Locale.JAPANESE,
+      ApplicationResources.bundleSet,
+      ApplicationResources.getSourceFile("ApplicationResources_ja.properties")
+    );
+  }
 }

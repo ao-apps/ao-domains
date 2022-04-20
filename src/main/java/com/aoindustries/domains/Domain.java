@@ -20,70 +20,88 @@ import java.util.regex.Pattern;
  */
 public class Domain implements Comparable<Domain>, Validateable {
 
-	public static final int SLD_MIN_LENGTH = 1;
-	public static final int SLD_MAX_LENGTH = 63;
-	public static final Pattern SLD_PATTERN = Pattern.compile("^[a-z0-9]+(-[a-z0-9]+)*$");
+  public static final int SLD_MIN_LENGTH = 1;
+  public static final int SLD_MAX_LENGTH = 63;
+  public static final Pattern SLD_PATTERN = Pattern.compile("^[a-z0-9]+(-[a-z0-9]+)*$");
 
-	private final String sld;
-	private final Tld tld;
+  private final String sld;
+  private final Tld tld;
 
-	public Domain(String sld, Tld tld) {
-		if(sld==null) throw new IllegalArgumentException("sld==null");
-		if(tld==null) throw new IllegalArgumentException("tld==null");
-		this.sld = sld.trim().toUpperCase(Locale.ENGLISH);
-		this.tld = tld;
-	}
+  public Domain(String sld, Tld tld) {
+    if (sld == null) {
+      throw new IllegalArgumentException("sld == null");
+    }
+    if (tld == null) {
+      throw new IllegalArgumentException("tld == null");
+    }
+    this.sld = sld.trim().toUpperCase(Locale.ENGLISH);
+    this.tld = tld;
+  }
 
-	public String getSld() {
-		return sld;
-	}
+  public String getSld() {
+    return sld;
+  }
 
-	public Tld getTld() {
-		return tld;
-	}
+  public Tld getTld() {
+    return tld;
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if(!(obj instanceof Domain)) return false;
-		Domain other = (Domain)obj;
-		return sld.equals(other.sld) && tld==other.tld;
-	}
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof Domain)) {
+      return false;
+    }
+    Domain other = (Domain)obj;
+    return sld.equals(other.sld) && tld == other.tld;
+  }
 
-	@Override
-	public int hashCode() {
-		return sld.hashCode()*31 + tld.hashCode();
-	}
+  @Override
+  public int hashCode() {
+    return sld.hashCode()*31 + tld.hashCode();
+  }
 
-	@Override
-	public String toString() {
-		return sld+"."+tld;
-	}
+  @Override
+  public String toString() {
+    return sld+"."+tld;
+  }
 
-	@Override
-	public int compareTo(Domain other) {
-		int diff = tld.compareTo(other.tld);
-		if(diff!=0) return diff;
-		return sld.compareTo(other.sld);
-	}
+  @Override
+  public int compareTo(Domain other) {
+    int diff = tld.compareTo(other.tld);
+    if (diff != 0) {
+      return diff;
+    }
+    return sld.compareTo(other.sld);
+  }
 
-	private static void addError(Map<String, List<String>> errors, String fieldName, String key) {
-		List<String> list = errors.get(fieldName);
-		if(list == null) errors.put(fieldName, list = new ArrayList<>());
-		list.add(ApplicationResources.accessor.getMessage(key));
-	}
+  private static void addError(Map<String, List<String>> errors, String fieldName, String key) {
+    List<String> list = errors.get(fieldName);
+    if (list == null) {
+      errors.put(fieldName, list = new ArrayList<>());
+    }
+    list.add(ApplicationResources.accessor.getMessage(key));
+  }
 
-	private static void addError(Map<String, List<String>> errors, String fieldName, String key, Object... args) {
-		List<String> list = errors.get(fieldName);
-		if(list == null) errors.put(fieldName, list = new ArrayList<>());
-		list.add(ApplicationResources.accessor.getMessage(key, args));
-	}
+  private static void addError(Map<String, List<String>> errors, String fieldName, String key, Object... args) {
+    List<String> list = errors.get(fieldName);
+    if (list == null) {
+      errors.put(fieldName, list = new ArrayList<>());
+    }
+    list.add(ApplicationResources.accessor.getMessage(key, args));
+  }
 
-	@Override
-	public Map<String, List<String>> validate() {
-		Map<String, List<String>> errors = new HashMap<>();
-		if(sld.length()<SLD_MIN_LENGTH) addError(errors, "sld", "Domain.validate.sld.tooShort", SLD_MIN_LENGTH);
-		if(sld.length()>SLD_MAX_LENGTH) addError(errors, "sld", "Domain.validate.sld.tooLong", SLD_MAX_LENGTH);
-		if(!SLD_PATTERN.matcher(sld).matches()) addError(errors, "sld", "Domain.validate.sld.invalid");
-		return errors;
-	}
+  @Override
+  public Map<String, List<String>> validate() {
+    Map<String, List<String>> errors = new HashMap<>();
+    if (sld.length()<SLD_MIN_LENGTH) {
+      addError(errors, "sld", "Domain.validate.sld.tooShort", SLD_MIN_LENGTH);
+    }
+    if (sld.length()>SLD_MAX_LENGTH) {
+      addError(errors, "sld", "Domain.validate.sld.tooLong", SLD_MAX_LENGTH);
+    }
+    if (!SLD_PATTERN.matcher(sld).matches()) {
+      addError(errors, "sld", "Domain.validate.sld.invalid");
+    }
+    return errors;
+  }
 }
