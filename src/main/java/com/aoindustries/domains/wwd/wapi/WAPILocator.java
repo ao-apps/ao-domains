@@ -115,8 +115,8 @@ public class WAPILocator extends org.apache.axis.client.Service implements com.a
   }
 
   /**
-  * Set the endpoint address for the specified port name.
-  */
+   * Set the endpoint address for the specified port name.
+   */
   public void setEndpointAddress(java.lang.String portName, java.lang.String address) throws javax.xml.rpc.ServiceException {
 
 if ("WAPISoap".equals(portName)) {
@@ -127,8 +127,8 @@ if ("WAPISoap".equals(portName)) {
   }
 
   /**
-  * Set the endpoint address for the specified port name.
-  */
+   * Set the endpoint address for the specified port name.
+   */
   public void setEndpointAddress(javax.xml.namespace.QName portName, java.lang.String address) throws javax.xml.rpc.ServiceException {
     setEndpointAddress(portName.getLocalPart(), address);
   }

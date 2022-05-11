@@ -30,8 +30,7 @@ public class ContactInfo implements Validateable {
     STATE_MAX_LENGTH = 30,
     POSTAL_CODE_MAX_LENGTH = 10,
     PHONE_MAX_LENGTH = 17,
-    FAX_MAX_LENGTH = 17
-  ;
+    FAX_MAX_LENGTH = 17;
 
   public static final Pattern
     FIRST_NAME_PATTERN = Pattern.compile("^[a-zA-Z0-9.,()\\\\@&' ]+$"),
@@ -50,8 +49,7 @@ public class ContactInfo implements Validateable {
     POSTAL_CODE_PATTERN_NL = Pattern.compile("^\\d\\d\\d\\d ?[a-zA-Z][a-zA-Z]$"),
     POSTAL_CODE_PATTERN = Pattern.compile("^[a-zA-Z0-9 #&'()+,-./:;@[\\]]+$"),
     PHONE_PATTERN = Pattern.compile("^+[0-9]{1,3}\\.[0-9]{1,12}$"),
-    FAX_PATTERN = Pattern.compile("^+[0-9]{1,3}\\.[0-9]{1,12}$")
-  ;
+    FAX_PATTERN = Pattern.compile("^+[0-9]{1,3}\\.[0-9]{1,12}$");
 
   private static String trimAndNullIfEmpty(String value) {
     if (value != null && (value=value.trim()).length() == 0) {

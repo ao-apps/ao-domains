@@ -10,10 +10,15 @@ import com.aoindustries.util.i18n.EditableResourceBundle;
 import java.util.Locale;
 
 /**
+ * Development-only editable resource bundle.
+ *
  * @author  AO Industries, Inc.
  */
 public final class ApplicationResources_ja extends EditableResourceBundle {
 
+  /**
+   * Loads the editable resource bundle.
+   */
   public ApplicationResources_ja() {
     super(
       Locale.JAPANESE,

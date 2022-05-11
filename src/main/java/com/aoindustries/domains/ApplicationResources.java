@@ -16,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Development-only editable resource bundle.
+ *
  * @author  AO Industries, Inc.
  */
 public final class ApplicationResources extends EditableResourceBundle {
@@ -41,6 +43,9 @@ public final class ApplicationResources extends EditableResourceBundle {
     }
   }
 
+  /**
+   * Loads the editable resource bundle.
+   */
   public ApplicationResources() {
     super(Locale.ROOT, bundleSet, getSourceFile("ApplicationResources.properties"));
   }
