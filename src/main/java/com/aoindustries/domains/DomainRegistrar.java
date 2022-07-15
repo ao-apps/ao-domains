@@ -1,11 +1,12 @@
-package com.aoindustries.domains;
-
 /*
  * Copyright 2009-2011, 2021, 2022 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
-import com.aoindustries.util.i18n.Money;
+
+package com.aoindustries.domains;
+
+import com.aoapps.lang.i18n.Money;
 import java.io.IOException;
 import java.util.Currency;
 import java.util.Map;

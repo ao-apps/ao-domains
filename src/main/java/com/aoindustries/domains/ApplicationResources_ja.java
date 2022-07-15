@@ -6,7 +6,7 @@
 
 package com.aoindustries.domains;
 
-import com.aoindustries.util.i18n.EditableResourceBundle;
+import com.aoapps.hodgepodge.i18n.EditableResourceBundle;
 import java.util.Locale;
 
 /**

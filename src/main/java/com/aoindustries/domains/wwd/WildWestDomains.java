@@ -6,7 +6,8 @@
 
 package com.aoindustries.domains.wwd;
 
-import com.aoindustries.collections.AoCollections;
+import com.aoapps.collections.AoCollections;
+import com.aoapps.lang.i18n.Money;
 import com.aoindustries.domains.Domain;
 import com.aoindustries.domains.DomainRegistrar;
 import com.aoindustries.domains.Tld;
@@ -23,7 +24,6 @@ import com.aoindustries.domains.wwd.wapi.ResourceRenewal;
 import com.aoindustries.domains.wwd.wapi.Shopper;
 import com.aoindustries.domains.wwd.wapi.WAPILocator;
 import com.aoindustries.domains.wwd.wapi.WAPISoap_PortType;
-import com.aoindustries.util.i18n.Money;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;

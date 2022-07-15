@@ -6,7 +6,7 @@
 
 package com.aoindustries.domains;
 
-import com.aoindustries.util.i18n.Country;
+import com.aoapps.hodgepodge.i18n.Country;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

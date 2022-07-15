@@ -6,7 +6,7 @@
 
 package com.aoindustries.domains.wwd;
 
-import com.aoindustries.util.PropertiesUtils;
+import com.aoapps.lang.util.PropertiesUtils;
 import java.io.IOException;
 import java.util.Properties;
 import junit.framework.Test;

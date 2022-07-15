@@ -6,9 +6,9 @@
 
 package com.aoindustries.domains;
 
-import com.aoindustries.util.i18n.ApplicationResourcesAccessor;
-import com.aoindustries.util.i18n.EditableResourceBundle;
-import com.aoindustries.util.i18n.EditableResourceBundleSet;
+import com.aoapps.hodgepodge.i18n.EditableResourceBundle;
+import com.aoapps.hodgepodge.i18n.EditableResourceBundleSet;
+import com.aoapps.lang.i18n.Resources;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Locale;
@@ -50,5 +50,5 @@ public final class ApplicationResources extends EditableResourceBundle {
     super(Locale.ROOT, bundleSet, getSourceFile("ApplicationResources.properties"));
   }
 
-  static final ApplicationResourcesAccessor accessor = ApplicationResourcesAccessor.getInstance(bundleSet.getBaseName());
+  static final Resources accessor = Resources.getResources(bundleSet.getBaseName());
 }

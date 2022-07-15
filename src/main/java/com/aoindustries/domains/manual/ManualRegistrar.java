@@ -1,15 +1,16 @@
-package com.aoindustries.domains.manual;
-
 /*
  * Copyright 2009-2011, 2021, 2022 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
+
+package com.aoindustries.domains.manual;
+
+import com.aoapps.lang.i18n.Money;
 import com.aoindustries.domains.Domain;
 import com.aoindustries.domains.DomainRegistrar;
 import com.aoindustries.domains.Tld;
 import com.aoindustries.domains.wwd.WildWestDomains;
-import com.aoindustries.util.i18n.Money;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -17,7 +18,6 @@ import java.util.Currency;
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * Provider for domains that must be registered manually.
@@ -26,14 +26,13 @@ import java.util.logging.Logger;
  */
 public class ManualRegistrar implements DomainRegistrar {
 
-  private static final Logger logger = Logger.getLogger(ManualRegistrar.class.getName());
-
   private final WildWestDomains wwd;
 
   public ManualRegistrar(String providerId, String portAddress, String account, String password) {
     this.wwd = new WildWestDomains(providerId, portAddress, account, password);
   }
 
+  @Override
   public String getProviderId() {
     return wwd.getProviderId();
   }
@@ -107,6 +106,7 @@ public class ManualRegistrar implements DomainRegistrar {
     )
   );
 
+  @Override
   public Set<Tld> getRegisterTlds() {
     return registerTlds;
   }
@@ -149,6 +149,7 @@ public class ManualRegistrar implements DomainRegistrar {
     )
   );
 
+  @Override
   public Set<Tld> getTransferTlds() {
     return transferTlds;
   }
@@ -165,12 +166,14 @@ public class ManualRegistrar implements DomainRegistrar {
     return wwd.getPassword();
   }
 
+  @Override
   public Map<Domain, Boolean> checkAvailability(Set<Domain> domains) throws IOException {
     return wwd.checkAvailability(domains);
   }
 
   private static final Currency USD = Currency.getInstance("USD");
 
+  @Override
   public Money getRegisterCost(Currency currency, Tld tld, int numYears) throws IOException {
     // Then manual values
     int minYears = tld.getMinRegistrationYears();
