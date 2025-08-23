@@ -77,9 +77,9 @@ public abstract class DomainRegistrarParent extends TestCase {
     existingSlds.put(Tld.ORG_CN, "best");
     existingSlds.put(Tld.DE, "best");
     existingSlds.put(Tld.ES, "best");
-    //TLD.COM_ES,
-    //TLD.NOM_ES,
-    //TLD.ORG_ES,
+    // TLD.COM_ES,
+    // TLD.NOM_ES,
+    // TLD.ORG_ES,
     existingSlds.put(Tld.EU, "best");
     existingSlds.put(Tld.FM, "best");
     existingSlds.put(Tld.GS, "best");
@@ -94,7 +94,7 @@ public abstract class DomainRegistrarParent extends TestCase {
     existingSlds.put(Tld.JP, "best");
     existingSlds.put(Tld.ME, "best");
     existingSlds.put(Tld.MS, "best");
-    //existingSlds.put(Tld.MX, "best");
+    // existingSlds.put(Tld.MX, "best");
     existingSlds.put(Tld.COM_MX, "best");
     existingSlds.put(Tld.NL, "best");
     existingSlds.put(Tld.NU, "best");

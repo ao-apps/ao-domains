@@ -66,9 +66,9 @@ public class ManualRegistrar implements DomainRegistrar {
       Tld.ORG_CN,
       Tld.DE,
       Tld.ES,
-      //TLD.COM_ES,
-      //TLD.NOM_ES,
-      //TLD.ORG_ES,
+      // TLD.COM_ES,
+      // TLD.NOM_ES,
+      // TLD.ORG_ES,
       Tld.EU,
       Tld.FM,
       Tld.GS,
@@ -83,7 +83,7 @@ public class ManualRegistrar implements DomainRegistrar {
       Tld.JP,
       Tld.ME,
       Tld.MS,
-      //Tld.MX,
+      // Tld.MX,
       Tld.COM_MX,
       Tld.NL,
       Tld.NU,
@@ -121,14 +121,14 @@ public class ManualRegistrar implements DomainRegistrar {
       Tld.IT,
       Tld.ORG,
       Tld.MOBI,
-      //TLD.COM_ES,
-      //TLD.MX,
+      // TLD.COM_ES,
+      // TLD.MX,
       Tld.WS,
-      //TLD.NOM_ES,
+      // TLD.NOM_ES,
       Tld.US,
       Tld.ES,
-      //TLD.ORG_ES,
-      //TLD.NL,
+      // TLD.ORG_ES,
+      // TLD.NL,
       Tld.IN,
       Tld.COM_MX,
       Tld.BZ,
@@ -243,7 +243,7 @@ public class ManualRegistrar implements DomainRegistrar {
         case IDV_TW:
         case VG:
           return new Money(USD, new BigDecimal("39.99"));
-        //case MX:
+        // case MX:
         case COM_BZ:
         case NET_BZ:
           return new Money(USD, new BigDecimal("49.99"));

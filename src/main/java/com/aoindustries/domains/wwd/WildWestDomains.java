@@ -195,13 +195,13 @@ public class WildWestDomains implements DomainRegistrar {
       // No pricing available: Tld.IT,
       Tld.ORG,
       Tld.MOBI,
-      //TLD.COM_ES,
-      //Tld.MX,
+      // TLD.COM_ES,
+      // Tld.MX,
       Tld.WS,
-      //TLD.NOM_ES,
+      // TLD.NOM_ES,
       Tld.US,
       Tld.ES,
-      //TLD.ORG_ES,
+      // TLD.ORG_ES,
       Tld.NL,
       Tld.IN,
       Tld.COM_MX,
@@ -233,14 +233,14 @@ public class WildWestDomains implements DomainRegistrar {
       // No pricing available: Tld.IT,
       Tld.ORG,
       Tld.MOBI,
-      //TLD.COM_ES,
-      //TLD.MX,
+      // TLD.COM_ES,
+      // TLD.MX,
       Tld.WS,
-      //TLD.NOM_ES,
+      // TLD.NOM_ES,
       Tld.US,
       Tld.ES,
-      //TLD.ORG_ES,
-      //TLD.NL,
+      // TLD.ORG_ES,
+      // TLD.NL,
       Tld.IN,
       Tld.COM_MX,
       Tld.BZ,
@@ -843,8 +843,8 @@ public class WildWestDomains implements DomainRegistrar {
           return new Money(USD, new BigDecimal("19.99"));
         case COM_MX:
           return new Money(USD, new BigDecimal("28.99"));
-        //case MX:
-        //    return new Money(USD, new BigDecimal("31.99"));
+        // case MX:
+        //     return new Money(USD, new BigDecimal("31.99"));
         case TV:
           return new Money(USD, new BigDecimal("39.99"));
         default:
