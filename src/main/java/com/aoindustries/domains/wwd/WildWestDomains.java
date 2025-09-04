@@ -1,5 +1,5 @@
 /*
- * Copyright 2009-2011, 2020, 2021, 2022 by AO Industries, Inc.,
+ * Copyright 2009-2011, 2020, 2021, 2022, 2025 by AO Industries, Inc.,
  * 7262 Bull Pen Cir, Mobile, Alabama, 36695, U.S.A.
  * All rights reserved.
  */
@@ -355,7 +355,7 @@ public class WildWestDomains implements DomainRegistrar {
       pin
     );
     logger.info(response);
-    // TODO
+    // TODO: Implement
   }
 
   public class OrderDomainsResult {
@@ -605,7 +605,7 @@ public class WildWestDomains implements DomainRegistrar {
     Document document = transform(response);
     // TODO: New XML Processing Limits (JDK-8270504 (not public)), see https://www.oracle.com/java/technologies/javase/8all-relnotes.html
     XPath xpath = XPathFactory.newInstance().newXPath();
-    // TODO
+    // TODO: Implement
   }
 
   public String orderPrivateDomainRenewals(String user, String dbpuser, String dbppwd, String usResourceid, String bizResourceid, String bizPdResourceid) throws IOException {
